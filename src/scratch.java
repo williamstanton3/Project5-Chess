@@ -7,12 +7,9 @@ public class scratch {
 //            System.out.println("hey");
 //        }
 
-        char blackKing = (char)9812;
-        System.out.println(blackKing);
+        Pawn p = new Pawn("white");
 
 
-        char blackQueen = (char)9813;
-        System.out.println(blackQueen);
 
     }
 }
