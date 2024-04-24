@@ -110,7 +110,7 @@ public class Board {
     }
 
     /**
-     * checks to see if the cahr at a given locaiton is black
+     * checks to see if the char at a given location is black
      * @param row of the location
      * @param col of the location
      * @return true of false

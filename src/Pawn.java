@@ -8,7 +8,7 @@ public class Pawn extends Piece {
      * @param color of the pawn
      */
     public Pawn(String color) {
-        super(color);
+        super(color, 1,0);
         if (color.equals("white")) {
             piece = (char)9823;
         }
@@ -24,7 +24,14 @@ public class Pawn extends Piece {
      */
     @Override
     public boolean isValidMove(int startingSpot, int endingSpot) {
-        return false; // stub
+        //on it's first move the pawn can move two spaces
+        //on any other move it can only move one space
+        //if there is an enemy in front of it, it can move in a diagonal
+        // Convert positions to row and column
+        int startX = startingSpot / 8;
+        int startY = startingSpot % 8;
+        int endX = endingSpot / 8;
+        int endY = endingSpot % 8;
 
     }
 }
