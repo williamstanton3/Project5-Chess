@@ -37,7 +37,6 @@ public class Game {
 
         // create piece classes for both teams
         // 8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen for each
-
     }
 
     /**

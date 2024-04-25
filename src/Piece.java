@@ -1,18 +1,18 @@
 abstract class Piece {
-    private String color;
-    private int xAxis;
-    private int yAxis;
+    protected String color;
+    protected int row;
+    protected int col;
 
     /**
      * Constructor that holds all the specs of the piece
      * @param color determines which team this piece is attached too
-     * @param xAxis (position)
-     * @param yAxis (position)
+     * @param row (position)
+     * @param col (position)
      */
-    public Piece (String color, Integer xAxis, Integer yAxis) {
+    public Piece (String color, int row, int col) {
         this.color = color;
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
+        this.row = row;
+        this.col = col;
     }
 
     /**
@@ -25,45 +25,40 @@ abstract class Piece {
 
     /**
      *
-     * @return the xAxis
+     * @return the row
      */
-    public int getX(){
-        return xAxis;
+    public int getRow(){
+        return row;
     }
 
     /**
      *
-     * @return the yAxis
+     * @return the col
      */
-    public int getY(){
-        return yAxis;
+    public int getCol(){
+        return col;
     }
-
     /**
      *
-     * @param newX
-     * @return xAxis as newX
+     * @param newRow
      */
-    public int setX(int newX){
-        return xAxis = newX;
+    public void setRow(int newRow){
+        row = newRow;
     }
-
     /**
      *
-     * @param newY
-     * @return yAxis as newY
+     * @param newCol
      */
-    public int setY(int newY){
-        return yAxis = newY;
+    public void setCol(int newCol){
+        col = newCol;
     }
-
     /**
      *
      * @param x position that we want the piece moved to
      * @param y position that we want the piece moved to
      * @return the new positional coordinates
      */
-    public Integer move(int x, int y){
+    public Integer move(int x, int y) {
         if(isValidMove(x,y)){
             setX(x);
             setY(y);

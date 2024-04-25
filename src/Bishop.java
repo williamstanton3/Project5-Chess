@@ -8,8 +8,8 @@ public class Bishop extends Piece {
      * constructor that creates a bishop of the given color
      * @param color of the bishop
      */
-    public Bishop(String color) {
-        super(color);
+    public Bishop(String color, int row, int col) {
+        super(color, row, col);
         if (color.equals("white")) {
             piece = (char)9821;
         }
