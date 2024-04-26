@@ -1,21 +1,16 @@
 public class King extends Piece {
-
-    /**
-     * a char of the king, either white or black
-     */
-    private char piece;
     /**
      * constructor that creates a King of the given color
      * @param color of the king
      */
-    public King(String color) {
+    public King(String color, int row, int col) {
         //set position and color of the King piece
-        super(color,0,4);
+        super(color,row,col);
         if (color.equals("white")) {
-            piece = (char)9818;
+            character = (char)9818;
         }
         else {
-            piece = (char)9812;
+            character = (char)9812;
         }
     }
     /**

@@ -7,9 +7,8 @@ public class scratch {
 //            System.out.println("hey");
 //        }
 
-        Pawn p = new Pawn("white");
-
-
+        Board b = new Board();
+        b.print();
 
     }
 }

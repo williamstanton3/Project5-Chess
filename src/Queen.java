@@ -1,19 +1,15 @@
 public class Queen extends Piece {
     /**
-     * a char of the queen, either white or black
-     */
-    private char piece;
-    /**
      * constructor that creates a queen of the given color
      * @param color of the queen
      */
-    public Queen(String color) {
-        super(color);
+    public Queen(String color, int row, int col) {
+        super(color, row, col);
         if (color.equals("white")) {
-            piece = (char)9819;
+            character = (char)9819;
         }
         else {
-            piece = (char)9813;
+            character = (char)9813;
         }
     }
     /**

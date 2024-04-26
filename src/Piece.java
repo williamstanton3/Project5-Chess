@@ -1,4 +1,5 @@
 abstract class Piece {
+    protected char character;
     protected String color;
     protected int row;
     protected int col;
@@ -23,6 +24,13 @@ abstract class Piece {
      */
     public abstract boolean isValidMove(int startingSpot, int endingSpot);
 
+    /**
+     * gets the chess character
+     * @return the ches character
+     */
+    public char getCharacter() {
+        return character;
+    }
     /**
      *
      * @return the row
@@ -60,11 +68,15 @@ abstract class Piece {
      */
     public Integer move(int x, int y) {
         if(isValidMove(x,y)){
-            setX(x);
-            setY(y);
+            setRow(x);
+            setCol(y);
         }
-        return getX() + getY();
+        return getRow() + getCol();
     }
 
+
+    public char toChar() {
+        return character;
+    }
 
 }

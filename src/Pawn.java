@@ -1,19 +1,15 @@
 public class Pawn extends Piece {
     /**
-     * a char of the pawn, either white or black
-     */
-    private char piece;
-    /**
      * constructor that creates a pawn of the given color
      * @param color of the pawn
      */
-    public Pawn(String color) {
-        super(color, 1,0);
+    public Pawn(String color, int row, int col) {
+        super(color, row, col);
         if (color.equals("white")) {
-            piece = (char)9823;
+            character = (char)9823;
         }
         else {
-            piece = (char)9817;
+            character = (char)9817;
         }
     }
     /**
@@ -32,6 +28,9 @@ public class Pawn extends Piece {
         int startY = startingSpot % 8;
         int endX = endingSpot / 8;
         int endY = endingSpot % 8;
+
+
+        return true; // stub
 
     }
 }

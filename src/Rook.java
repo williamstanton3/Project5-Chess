@@ -1,19 +1,15 @@
 public class Rook extends Piece {
     /**
-     * a char of the rook, either white or black
-     */
-    private char piece;
-    /**
      * constructor that creates a rook of the given color
      * @param color of the rook
      */
-    public Rook(String color) {
-        super(color);
+    public Rook(String color, int row, int col) {
+        super(color, row, col);
         if (color.equals("white")) {
-            piece = (char)9820;
+            character = (char)9820;
         }
         else {
-            piece = (char)9814;
+            character = (char)9814;
         }
     }
     /**

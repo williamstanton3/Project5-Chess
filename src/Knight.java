@@ -1,19 +1,15 @@
 public class Knight extends Piece {
     /**
-     * a char of the knight, either white or black
-     */
-    private char piece;
-    /**
      * constructor that creates a Knight of the given color
      * @param color of the knight
      */
-    public Knight(String color) {
-        super(color);
+    public Knight(String color, int row, int col) {
+        super(color, row, col);
         if (color.equals("white")) {
-            piece = (char)9822;
+            character = (char)9822;
         }
         else {
-            piece = (char)9816;
+            character = (char)9816;
         }
     }
     /**
