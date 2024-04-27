@@ -20,8 +20,16 @@ public class Rook extends Piece {
      */
     @Override
     public boolean isValidMove(int startingSpot, int endingSpot) {
-        return false; // stub
+        //valid moves are in all directions for one square.
 
+        // Convert positions to row and column
+        int startX = startingSpot / 8;
+        int startY = startingSpot % 8;
+        int endX = endingSpot / 8;
+        int endY = endingSpot % 8;
+
+        // Check if the move is valid (within one square in all directions)
+        return ((startX == endX) || (startY == endY));
     }
 
 }

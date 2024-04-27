@@ -18,7 +18,6 @@ abstract class Piece {
 
     /**
      * Abstract method to test whether a move can be made by a certain piece
-     * @param startingSpot
      * @param endingSpot
      * @return a boolean as to weather certain positions are valid
      */
@@ -72,11 +71,6 @@ abstract class Piece {
             setCol(y);
         }
         return getRow() + getCol();
-    }
-
-
-    public char toChar() {
-        return character;
     }
 
 }

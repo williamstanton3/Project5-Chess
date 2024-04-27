@@ -30,7 +30,7 @@ public class Pawn extends Piece {
         int endY = endingSpot % 8;
 
 
-        return true; // stub
+        return true;
 
     }
 }

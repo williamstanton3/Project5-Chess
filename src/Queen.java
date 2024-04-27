@@ -20,11 +20,16 @@ public class Queen extends Piece {
      */
     @Override
     public boolean isValidMove(int startingSpot, int endingSpot) {
-        // stub
-        return false;
+        //valid moves are in all directions for one square.
 
-        // check to see if a move from the given startingSpot to the given endingSpot
-        // is legal for this piece
+        // Convert positions to row and column
+        int startX = startingSpot / 8;
+        int startY = startingSpot % 8;
+        int endX = endingSpot / 8;
+        int endY = endingSpot % 8;
+
+        // Check if the move is valid (within one square in all directions)
+        return ((startX == endX) || (startY == endY) || (startX - startY == endX - endY));
 
     }
 }

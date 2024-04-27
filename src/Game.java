@@ -34,6 +34,13 @@ public class Game {
     public Game() {
         gameBoard = new Board();
         currentPlayer = "white";
+        while(true) {
+            gameBoard.print();
+            System.out.println(currentPlayer + "'s move: ");
+            ArrayList<Integer> move = getPlayerMove();
+            // check to see if the move is valid
+
+        }
 
         // create piece classes for both teams
         // 8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen for each

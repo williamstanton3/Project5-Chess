@@ -7,8 +7,8 @@ public class scratch {
 //            System.out.println("hey");
 //        }
 
-        Board b = new Board();
-        b.print();
+        Knight k = new Knight("white", 0, 0);
+        System.out.println(k.isValidMove(44, 29));
 
     }
 }
