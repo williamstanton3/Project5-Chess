@@ -6,10 +6,10 @@ public class Knight extends Piece {
     public Knight(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            character = (char)9822;
+            setChar((char)9822);
         }
         else {
-            character = (char)9816;
+            setChar((char)9816);
         }
     }
     /**

@@ -6,10 +6,10 @@ public class Pawn extends Piece {
     public Pawn(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            character = (char)9823;
+            setChar((char)9823);
         }
         else {
-            character = (char)9817;
+            setChar((char)9817);
         }
     }
     /**

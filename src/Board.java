@@ -120,7 +120,7 @@ public class Board {
 
             for (int col = 0; col < SIZE; col++) {
                 if (currentBoard[row][col] == null) {
-                    System.out.print("| " + " " + " ");
+                    System.out.print("| " + ((row *8) + col) + " ");
                 }
                 else {
                     System.out.print("| " + currentBoard[row][col].getCharacter() + " ");
@@ -138,6 +138,9 @@ public class Board {
      */
 
     public int getColumn(int position) {
+        if (position == 0) {
+            return 1;
+        }
         return (position -1) % SIZE;
     }
 
@@ -147,7 +150,19 @@ public class Board {
      * @return the row of that square
      */
     public int getRow(int position) {
+        if (position == 0) {
+            return 1;
+        }
         return (position -1) % SIZE;
+    }
+
+    public Piece getPiece(int position) {
+        return currentBoard[getRow(position)][getColumn(position)];
+    }
+
+    public void movePiece(int startingSpot, int endingSpot) {
+        currentBoard[getRow(endingSpot)][getColumn(endingSpot)] = getPiece(startingSpot);
+        currentBoard[getRow(startingSpot)][getColumn(startingSpot)] = null;
     }
 
     /**
@@ -161,27 +176,38 @@ public class Board {
         if (endingSpot < 0 || endingSpot > SIZE * SIZE) {
             throw new Exception("CANNOT PLAY THERE");
         }
-        int row = getRow(endingSpot);
-        int col = getColumn(endingSpot);
-        // first, check to see if the move is valid (based on rules)
+        int startRow = getRow(startingSpot);
+        int startCol = getRow(endingSpot);
+        int endRow = getRow(endingSpot);
+        int endCol = getColumn(endingSpot);
 
-        if (currentPlayer.equals("white")) {
-            // if the white player is trying to move to a spot with another white piece
-            if (isWhite(row, col)) {
-                throw new Exception("CANNOT PLAY THERE");
-            }
-            else {
-                // update board
-            }
+        // checks to see if the starting piece is valid
+        if (currentPlayer.equals("white") && !getPiece(startingSpot).getColor().equals("white")) {
+            throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
         }
-        else { // currentPlayer is black
-            if (isBlack(row, col)) {
-                throw new Exception("CANNOT PLAY THERE");
-            }
-            else {
-                // update board
-            }
+        else if (currentPlayer.equals("black") && !getPiece(startingSpot).getColor().equals("black")) {
+            throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
         }
+
+        // checks to see if ending spot is valid
+        else if (currentPlayer.equals("white") && getPiece(endingSpot).getColor().equals("white")) {
+            throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
+        }
+        else if (currentPlayer.equals("black") && getPiece(endingSpot).getColor().equals("black")) {
+            throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
+        }
+
+        // checks to see if the move is valid based on the rules
+        else if (!getPiece(startingSpot).isValidMove(startingSpot, endingSpot)) {
+            throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
+        }
+
+        // checks to see if endingSpot is empty
+        else if (currentBoard[endRow][endCol].isEmpty()) {
+            // move piece
+        }
+
+
         // first, check to see if the move is valid (based on rules)
         // check to see if there is a piece in the endingSpot
         // if there is, check to see which color it is

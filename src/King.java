@@ -7,10 +7,10 @@ public class King extends Piece {
         //set position and color of the King piece
         super(color,row,col);
         if (color.equals("white")) {
-            character = (char)9818;
+            setChar((char)9818);
         }
         else {
-            character = (char)9812;
+            setChar((char)9812);
         }
     }
     /**

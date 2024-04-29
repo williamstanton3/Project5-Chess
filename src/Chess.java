@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Chess {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Game g = new Game();
         g.gameLoop();
     }

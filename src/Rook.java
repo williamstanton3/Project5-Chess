@@ -6,10 +6,10 @@ public class Rook extends Piece {
     public Rook(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            character = (char)9820;
+            setChar((char)9820);
         }
         else {
-            character = (char)9814;
+            setChar((char)9814);
         }
     }
     /**

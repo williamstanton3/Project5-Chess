@@ -1,8 +1,8 @@
 abstract class Piece {
-    protected char character;
-    protected String color;
-    protected int row;
-    protected int col;
+    private char character;
+    private String color;
+    private int row;
+    private int col;
 
     /**
      * Constructor that holds all the specs of the piece
@@ -37,7 +37,6 @@ abstract class Piece {
     public int getRow(){
         return row;
     }
-
     /**
      *
      * @return the col
@@ -45,10 +44,15 @@ abstract class Piece {
     public int getCol(){
         return col;
     }
+
+    public String getColor() {
+        return color;
+    }
     /**
      *
      * @param newRow
      */
+
     public void setRow(int newRow){
         row = newRow;
     }
@@ -58,6 +62,9 @@ abstract class Piece {
      */
     public void setCol(int newCol){
         col = newCol;
+    }
+    public void setChar(char newChar){
+        character = newChar;
     }
     /**
      *
@@ -71,6 +78,10 @@ abstract class Piece {
             setCol(y);
         }
         return getRow() + getCol();
+    }
+
+    public boolean isEmpty() {
+        return !color.equals("white") && !color.equals("black");
     }
 
 }

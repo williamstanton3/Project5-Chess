@@ -6,10 +6,10 @@ public class Queen extends Piece {
     public Queen(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            character = (char)9819;
+            setChar((char)9819);
         }
         else {
-            character = (char)9813;
+            setChar((char)9813);
         }
     }
     /**

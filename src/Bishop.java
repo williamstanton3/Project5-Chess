@@ -7,10 +7,10 @@ public class Bishop extends Piece {
     public Bishop(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            character = (char)9821;
+            setChar((char)9821);
         }
         else {
-            character = (char)9815;
+            setChar((char)9815);
         }
     }
 
@@ -31,6 +31,5 @@ public class Bishop extends Piece {
 
         // Check if the move is valid (within one square in all directions)
         return (startX - startY == endX - endY);
-
     }
 }

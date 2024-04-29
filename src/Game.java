@@ -31,14 +31,40 @@ public class Game {
     /**
      * creates and runs the game
      */
-    public Game() {
+    public Game() throws Exception {
+        Scanner sc = new Scanner(System.in);
         gameBoard = new Board();
         currentPlayer = "white";
         while(true) {
+            ArrayList<Integer> move = new ArrayList<>();
             gameBoard.print();
-            System.out.println(currentPlayer + "'s move: ");
-            ArrayList<Integer> move = getPlayerMove();
-            // check to see if the move is valid
+            System.out.println(currentPlayer + "'s move");
+            System.out.println("Enter index of piece you want to move: ");
+            move.add(sc.nextInt());
+            Piece p = gameBoard.getPiece(move.get(0));
+            // if the user is trying to move a piece that's not his
+            if (!currentPlayer.equals(p.getColor())) {
+                throw new Exception("Can't play there: That's not your piece");
+            }
+            if (p.getColor() == null) {
+                throw new Exception("Can't play there: That's not your piece");
+            }
+            System.out.println("Enter index of piece you want to move to: ");
+            move.add(sc.nextInt());
+
+            // if the user is trying to move to a spot where there is already a piece with the same color
+            if (currentPlayer.equals(gameBoard.getPiece(move.get(1)))) {
+                throw new Exception("Can't move there, you already have a piece at that spot");
+            }
+            // if the user tries to move a piece somewhere that isn't according to the rules
+            else if (!p.isValidMove(move.get(0), move.get(1))) {
+                throw new Exception("Sorry that move is invalid");
+            }
+            else {
+                p.move(move.get(0), move.get(1));
+            }
+            break; // stub
+
 
         }
 
