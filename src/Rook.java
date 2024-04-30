@@ -14,35 +14,19 @@ public class Rook extends Piece {
     }
     /**
      * checks to see if a given move is valid based on the rules of the game
-     * @param startingSpot where the rook begins
-     * @param endingSpot where the rook ends
      * @return true if the move is valid, false if it's not
      */
     @Override
-    public boolean isValidMove(int startingSpot, int endingSpot) {
-        //valid moves are in all directions for one square.
-
-        // Convert positions to row and column
-        int startX = startingSpot / 8;
-        int startY = startingSpot % 8;
-        int endX = endingSpot / 8;
-        int endY = endingSpot % 8;
+    public boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
+        //valid moves are up, down, left, or right for any direction
 
         String direction;
 
-
         // checks to see if there is a piece in the way
-        if ((startX != endX) && (startY != endY)) {
+        if ((startRow != endRow) && (startCol != endCol)) {
             return false;
         }
-        if (startX == endX) {
-            for (int i = 0; i < endX - startX; i++) {
-
-            }
-        }
-        else {
-            direction = "vert";
-        }
+        return true;
 
 
         // Check if the move is valid (within one square in all directions)

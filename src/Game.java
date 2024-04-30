@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     private Player player1;
@@ -27,19 +26,6 @@ public class Game {
         // 8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen for each
     }
 
-    /**
-     * gets a move from the user
-     * @return an arraylist with the original location and the new location of the piece the user wants to move
-     */
-    public ArrayList<Integer> getPlayerMove() {
-        ArrayList<Integer> move = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-
-        // take the location of the piece the user wants to move
-        // and the location where the user wants to move to
-
-        return move;
-    }
     public void switchPlayer() {
         if (currentPlayer == player1) {
             currentPlayer = player2;
@@ -49,32 +35,79 @@ public class Game {
         }
     }
 
+    public int toInt(char c) {
+        char [] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
+        for (int i = 0; i < chars.length; i++) {
+            if (c == chars[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Map<String, Integer> getPlayerMove() {
+        Map<String, Integer> userMove = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            try {
+                // get starting piece from user
+                int startRow;
+                int startCol;
+                System.out.println(currentPlayer.getName() + "'s move");
+                System.out.print("Enter the row and column of the piece you want to move: ");
+                char startRowChar = sc.next().charAt(0);
+                startRow = toInt(startRowChar);
+                startCol = sc.nextInt();
+
+                Piece p = gameBoard.getPiece(startRow, startCol);
+                // get location where the user wants to move the piece
+                int endRow;
+                int endCol;
+                System.out.print("Enter the row and column of the piece you want to move: ");
+                char endRowChar = sc.next().charAt(0);
+                endRow = toInt(endRowChar);
+                endCol = sc.nextInt();
+
+                // add the moves to the map
+                userMove.put("startRow", startRow);
+                userMove.put("startCol", startCol);
+                userMove.put("endRow", endRow);
+                userMove.put("endCol", endCol);
+
+                return userMove;
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Bad Input");
+                sc.nextLine();
+            }
+        }
+    }
+
     /**
      * a loop that runs until a winner is declared
      */
     public void gameLoop() {
         Scanner sc = new Scanner(System.in);
-        while(true) {
+        Map<String, Integer> userMove;
+        int moves = 0;
+
+        while (moves < 10) {
             gameBoard.print(); // print new board
+
+            userMove = getPlayerMove();
+
+            while(true) {
+                // try to make the given move from the user, throw exception if move is invalid
+                try {
+                    gameBoard.play(currentPlayer, userMove.get("startRow"), userMove.get("startCol"), userMove.get("endRow"), userMove.get("endCol"));
+                    break;
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
             switchPlayer(); // switch the player
-
-            // get move from user
-            ArrayList<Integer> move = new ArrayList<>();
-            System.out.println(currentPlayer.getName() + "'s move");
-            System.out.println("Enter index of piece you want to move: ");
-            move.add(sc.nextInt());
-            Piece p = gameBoard.getPiece(move.get(0));
-            System.out.println("Enter index of piece you want to move to: ");
-            move.add(sc.nextInt());
-
-            // try to make the given move from the user, throw exception if move is invalid
-            try {
-                gameBoard.play(currentPlayer, move.get(0), move.get(1));
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
+            moves++;
         }
     }
 }

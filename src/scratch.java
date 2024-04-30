@@ -6,8 +6,7 @@ public class scratch {
     public static void main(String[] args) {
         Board b = new Board();
         b.print();
-        b.movePiece(0, 16);
-        b.print();
 
+        System.out.println(b.getPiece(3,3).getCharacter());
     }
 }

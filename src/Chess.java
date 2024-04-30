@@ -5,10 +5,14 @@ public class Chess {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name of Player 1: ");
+        System.out.print("Enter name of Player 1: ");
         Player p1 = new Player(sc.next(), "white");
-        System.out.println("Enter name of Player 2: ");
+        System.out.print("Enter name of Player 2: ");
         Player p2 = new Player(sc.next(), "black");
+
+        System.out.println();
+        System.out.println(p1.getName() + ", you are white. " + p2.getName() +", you are black.");
+        System.out.println("BEGIN! " + p1.getName() + " vs. " + p2.getName());
 
         Game g = new Game(p1, p2);
         g.gameLoop();
