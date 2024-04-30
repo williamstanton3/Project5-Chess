@@ -21,10 +21,10 @@ abstract class Piece {
 
     /**
      * Abstract method to test whether a move can be made by a certain piece
-     * @param endingSpot
+     * @param
      * @return a boolean as to weather certain positions are valid
      */
-    public abstract boolean isValidMove(int startingSpot, int endingSpot);
+    public abstract boolean isValidMove(int startRow, int startCol, int endRow, int endCol);
 
     /**
      * gets the chess character
@@ -37,7 +37,7 @@ abstract class Piece {
      *
      * @return the row
      */
-    public int getRow(){
+    public int getRow() {
         return row;
     }
     /**
@@ -60,7 +60,7 @@ abstract class Piece {
      * @param newRow
      */
 
-    public void setRow(int newRow){
+    public void setRow(char newRow){
         row = newRow;
     }
     /**
@@ -73,19 +73,20 @@ abstract class Piece {
     public void setChar(char newChar){
         character = newChar;
     }
-    /**
-     *
-     * @param x position that we want the piece moved to
-     * @param y position that we want the piece moved to
-     * @return the new positional coordinates
-     */
-    public Integer move(int x, int y) {
-        if(isValidMove(x,y)){
-            setRow(x);
-            setCol(y);
-        }
-        return getRow() + getCol();
-    }
+
+//    /**
+//     *
+//     * @param x position that we want the piece moved to
+//     * @param y position that we want the piece moved to
+//     * @return the new positional coordinates
+//     */
+//    public Integer move(int x, int y) {
+//        if(isValidMove(x,y)){
+//            setRow(x);
+//            setCol(y);
+//        }
+//        return getRow() + getCol();
+//    }
 
     public boolean isEmpty() {
         return !color.equals("white") && !color.equals("black");
