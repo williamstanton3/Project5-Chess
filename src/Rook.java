@@ -46,6 +46,7 @@ public class Rook extends Piece {
 
 
         // Check if the move is valid (within one square in all directions)
+        return true;
     }
 
 }
