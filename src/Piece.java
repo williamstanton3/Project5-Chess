@@ -3,6 +3,7 @@ abstract class Piece {
     private String color;
     private int row;
     private int col;
+    private int position;
 
     /**
      * Constructor that holds all the specs of the piece
@@ -14,6 +15,8 @@ abstract class Piece {
         this.color = color;
         this.row = row;
         this.col = col;
+
+        position = (col / 8) + row;
     }
 
     /**
@@ -47,6 +50,10 @@ abstract class Piece {
 
     public String getColor() {
         return color;
+    }
+
+    public int getPosition() {
+        return position;
     }
     /**
      *

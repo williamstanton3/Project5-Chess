@@ -28,8 +28,24 @@ public class Rook extends Piece {
         int endX = endingSpot / 8;
         int endY = endingSpot % 8;
 
+        String direction;
+
+
+        // checks to see if there is a piece in the way
+        if ((startX != endX) && (startY != endY)) {
+            return false;
+        }
+        if (startX == endX) {
+            for (int i = 0; i < endX - startX; i++) {
+
+            }
+        }
+        else {
+            direction = "vert";
+        }
+
+
         // Check if the move is valid (within one square in all directions)
-        return ((startX == endX) || (startY == endY));
     }
 
 }

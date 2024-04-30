@@ -2,23 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    /**
-     * an arrayList that holds all the white pieces on the baord
-     */
-    private ArrayList<Piece> whiteAlive = new ArrayList<>();
-    /**
-     * an arrayList that holds all the black pieces on the board
-     */
-    private ArrayList<Piece> blackAlive = new ArrayList<>();
-    /**
-     * an arrayList that holds all the white pieces that have been killed
-     */
-    private ArrayList<Piece> whiteDead = new ArrayList<>();
-    /**
-     * an arrayList that holds all the black pieces that have been killed
-     */
-    private ArrayList<Piece> blackDead = new ArrayList<>();
-
+    private Player player1;
+    private Player player2;
     /**
      * the current gameBoard
      */
@@ -26,47 +11,17 @@ public class Game {
     /**
      * the current Player (white or black)
      */
-    private String currentPlayer;
+    private Player currentPlayer;
 
     /**
      * creates and runs the game
      */
-    public Game() throws Exception {
-        Scanner sc = new Scanner(System.in);
+    public Game(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+
         gameBoard = new Board();
-        currentPlayer = "white";
-        while(true) {
-            ArrayList<Integer> move = new ArrayList<>();
-            gameBoard.print();
-            System.out.println(currentPlayer + "'s move");
-            System.out.println("Enter index of piece you want to move: ");
-            move.add(sc.nextInt());
-            Piece p = gameBoard.getPiece(move.get(0));
-            // if the user is trying to move a piece that's not his
-            if (!currentPlayer.equals(p.getColor())) {
-                throw new Exception("Can't play there: That's not your piece");
-            }
-            if (p.getColor() == null) {
-                throw new Exception("Can't play there: That's not your piece");
-            }
-            System.out.println("Enter index of piece you want to move to: ");
-            move.add(sc.nextInt());
-
-            // if the user is trying to move to a spot where there is already a piece with the same color
-            if (currentPlayer.equals(gameBoard.getPiece(move.get(1)))) {
-                throw new Exception("Can't move there, you already have a piece at that spot");
-            }
-            // if the user tries to move a piece somewhere that isn't according to the rules
-            else if (!p.isValidMove(move.get(0), move.get(1))) {
-                throw new Exception("Sorry that move is invalid");
-            }
-            else {
-                p.move(move.get(0), move.get(1));
-            }
-            break; // stub
-
-
-        }
+        currentPlayer = player1;
 
         // create piece classes for both teams
         // 8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen for each
@@ -85,13 +40,41 @@ public class Game {
 
         return move;
     }
+    public void switchPlayer() {
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
+        }
+        else {
+            currentPlayer = player1;
+        }
+    }
 
     /**
      * a loop that runs until a winner is declared
      */
     public void gameLoop() {
-        while (true) { // neither player has won
-            // run the game
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            gameBoard.print(); // print new board
+            switchPlayer(); // switch the player
+
+            // get move from user
+            ArrayList<Integer> move = new ArrayList<>();
+            System.out.println(currentPlayer.getName() + "'s move");
+            System.out.println("Enter index of piece you want to move: ");
+            move.add(sc.nextInt());
+            Piece p = gameBoard.getPiece(move.get(0));
+            System.out.println("Enter index of piece you want to move to: ");
+            move.add(sc.nextInt());
+
+            // try to make the given move from the user, throw exception if move is invalid
+            try {
+                gameBoard.play(currentPlayer, move.get(0), move.get(1));
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 }

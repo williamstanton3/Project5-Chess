@@ -4,7 +4,13 @@ import java.util.Scanner;
 public class Chess {
 
     public static void main(String[] args) throws Exception {
-        Game g = new Game();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name of Player 1: ");
+        Player p1 = new Player(sc.next(), "white");
+        System.out.println("Enter name of Player 2: ");
+        Player p2 = new Player(sc.next(), "black");
+
+        Game g = new Game(p1, p2);
         g.gameLoop();
     }
 

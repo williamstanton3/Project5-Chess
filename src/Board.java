@@ -1,8 +1,30 @@
+import java.util.ArrayList;
+
 public class Board {
+    /**
+     * an arrayList that holds all the white pieces on the baord
+     */
+    private ArrayList<Piece> whiteAlive = new ArrayList<>();
+    /**
+     * an arrayList that holds all the black pieces on the board
+     */
+    private ArrayList<Piece> blackAlive = new ArrayList<>();
+    /**
+     * an arrayList that holds all the white pieces that have been killed
+     */
+    private ArrayList<Piece> whiteDead = new ArrayList<>();
+    /**
+     * an arrayList that holds all the black pieces that have been killed
+     */
+    private ArrayList<Piece> blackDead = new ArrayList<>();
 
     private static final int SIZE = 8;
 
     private Piece[][] currentBoard = new Piece[SIZE][SIZE];
+
+    private King blackKing;
+
+    private King whiteKing;
 
     /**
      * Creates the starting Chess Board
@@ -46,7 +68,7 @@ public class Board {
         Queen blackQueen = new Queen("black", 0, 3);
         currentBoard[0][3] = blackQueen;
         // black king
-        King blackKing = new King("black", 0, 4);
+        blackKing = new King("black", 0, 4);
         currentBoard[0][4] = blackKing;
         // black bishop 2
         Bishop blackBishop2 = new Bishop("black", 0, 5);
@@ -97,7 +119,7 @@ public class Board {
         Queen whiteQueen = new Queen("white", 0, 3);
         currentBoard[7][3] = whiteQueen;
         // black king
-        King whiteKing = new King("white", 0, 4);
+        whiteKing = new King("white", 0, 4);
         currentBoard[7][4] = whiteKing;
         // black bishop 2
         Bishop whiteBishop2 = new Bishop("white", 0, 5);
@@ -157,13 +179,34 @@ public class Board {
     }
 
     public Piece getPiece(int position) {
-        return currentBoard[getRow(position)][getColumn(position)];
+        if (currentBoard[getRow(position)][getColumn(position)].isEmpty()) {
+            return null;
+        }
+        else {
+            return currentBoard[getRow(position)][getColumn(position)];
+        }
+    }
+
+    public boolean hasWon(String color) {
+        if (color.equals("white")) {
+            if (!blackAlive.contains(blackKing)) {
+                return true;
+            }
+        }
+        if (color.equals("black")) {
+            if (!whiteAlive.contains(whiteKing)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void movePiece(int startingSpot, int endingSpot) {
         currentBoard[getRow(endingSpot)][getColumn(endingSpot)] = getPiece(startingSpot);
         currentBoard[getRow(startingSpot)][getColumn(startingSpot)] = null;
     }
+
 
     /**
      * Add a move to the board
@@ -172,7 +215,7 @@ public class Board {
      * @param endingSpot the location where the user wants to move the piece
      * @throws Exception if the location is invalid or is taken by a piece of the same color as user
      */
-    public void play(String currentPlayer, int startingSpot, int endingSpot) throws Exception{
+    public void play(Player currentPlayer, int startingSpot, int endingSpot) throws Exception{
         if (endingSpot < 0 || endingSpot > SIZE * SIZE) {
             throw new Exception("CANNOT PLAY THERE");
         }
@@ -182,18 +225,18 @@ public class Board {
         int endCol = getColumn(endingSpot);
 
         // checks to see if the starting piece is valid
-        if (currentPlayer.equals("white") && !getPiece(startingSpot).getColor().equals("white")) {
+        if (currentPlayer.getColor().equals("white") && !getPiece(startingSpot).getColor().equals("white")) {
             throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
         }
-        else if (currentPlayer.equals("black") && !getPiece(startingSpot).getColor().equals("black")) {
+        else if (currentPlayer.getColor().equals("black") && !getPiece(startingSpot).getColor().equals("black")) {
             throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
         }
 
         // checks to see if ending spot is valid
-        else if (currentPlayer.equals("white") && getPiece(endingSpot).getColor().equals("white")) {
+        else if (currentPlayer.getColor().equals("white") && getPiece(endingSpot).getColor().equals("white")) {
             throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
         }
-        else if (currentPlayer.equals("black") && getPiece(endingSpot).getColor().equals("black")) {
+        else if (currentPlayer.getColor().equals("black") && getPiece(endingSpot).getColor().equals("black")) {
             throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
         }
 
