@@ -18,6 +18,7 @@ public class Board {
      */
     private ArrayList<Piece> blackDead = new ArrayList<>();
 
+
     private static final int SIZE = 8;
 
     private static Piece[][] currentBoard = new Piece[SIZE][SIZE];
