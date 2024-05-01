@@ -18,7 +18,7 @@ public class Knight extends Piece {
      * @return true if the move is valid, false if it's not
      */
     @Override
-    public boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
+    public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         //valid moves are in all directions for one square.
 
         // Calculate absolute differences in row and column indices

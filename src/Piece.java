@@ -24,7 +24,7 @@ abstract class Piece {
      * @param
      * @return a boolean as to weather certain positions are valid
      */
-    public abstract boolean isValidMove(int startRow, int startCol, int endRow, int endCol);
+    public abstract boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol);
 
     /**
      * gets the chess character
