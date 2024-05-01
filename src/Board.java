@@ -20,7 +20,7 @@ public class Board {
 
     private static final int SIZE = 8;
 
-    private Piece[][] currentBoard = new Piece[SIZE][SIZE];
+    private static Piece[][] currentBoard = new Piece[SIZE][SIZE];
 
     private King blackKing;
 
@@ -187,7 +187,7 @@ public class Board {
         }
     }
 
-    public boolean isFull(int row, int col) {
+    public static boolean isFull(int row, int col) {
         if (currentBoard[row][col] != null) {
             return true;
         }

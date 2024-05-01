@@ -1,4 +1,6 @@
 public class Pawn extends Piece {
+    private boolean beenMoved = false;
+
     /**
      * constructor that creates a pawn of the given color
      * @param color of the pawn
@@ -18,11 +20,26 @@ public class Pawn extends Piece {
      */
     @Override
     public boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
-        //on it's first move the pawn can move two spaces
-        //on any other move it can only move one space
-        //if there is an enemy in front of it, it can move in a diagonal
+        // On its first move, the pawn can move two spaces
+        if (!beenMoved) {
+            if (endRow - startRow == 2 && endCol == startCol) {
+                beenMoved = true;
+                return true;
+            }
+        }
+        // On any other move, the pawn can only move one space
+        else {
+            if (endRow - startRow == 1 && endCol == startCol) {
+                return true;
+            }
+        }
 
-        return true;
-
+        // If there is an enemy piece in the diagonal, it can move there
+        if (Math.abs(endCol - startCol) == 1 && endRow - startRow == 1) {
+            if (Board.isFull(endRow, endCol)) {
+                return true;
+            }
+        }
+        return false;
     }
-}
+ }

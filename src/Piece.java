@@ -74,19 +74,6 @@ abstract class Piece {
         character = newChar;
     }
 
-//    /**
-//     *
-//     * @param x position that we want the piece moved to
-//     * @param y position that we want the piece moved to
-//     * @return the new positional coordinates
-//     */
-//    public Integer move(int x, int y) {
-//        if(isValidMove(x,y)){
-//            setRow(x);
-//            setCol(y);
-//        }
-//        return getRow() + getCol();
-//    }
 
     public boolean isEmpty() {
         return !color.equals("white") && !color.equals("black");
