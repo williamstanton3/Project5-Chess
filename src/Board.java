@@ -178,13 +178,20 @@ public class Board {
         return (position -1) % SIZE;
     }
 
-    public Piece getPiece(int row, int col) {
+    public Piece getPiece (int row, int col) {
         if (currentBoard[row][col] == null) {
             return null;
         }
         else {
             return currentBoard[row][col];
         }
+    }
+
+    public boolean isFull(int row, int col) {
+        if (currentBoard[row][col] != null) {
+            return true;
+        }
+        return false;
     }
 
     public boolean hasWon(String color) {
@@ -227,8 +234,10 @@ public class Board {
             }
 
             // checks to see if ending spot is valid
-            else if (currentPlayer.getColor().equals(getPiece(endRow, endCol).getColor())) {
-                throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
+            if (isFull(endRow, endCol)) {
+                if (currentPlayer.getColor().equals(getPiece(endRow, endCol).getColor())) {
+                    throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
+                }
             }
 
             // checks to see if the move is valid based on the rules

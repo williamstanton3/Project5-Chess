@@ -91,7 +91,7 @@ public class Game {
         Map<String, Integer> userMove;
         int moves = 0;
 
-        while (moves < 10) {
+        while (moves < 2) {
             gameBoard.print(); // print new board
 
             userMove = getPlayerMove();
@@ -104,6 +104,7 @@ public class Game {
                 }
                 catch (Exception e) {
                     System.out.println(e.getMessage());
+                    break;
                 }
             }
             switchPlayer(); // switch the player

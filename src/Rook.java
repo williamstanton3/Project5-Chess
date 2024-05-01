@@ -20,17 +20,12 @@ public class Rook extends Piece {
     public boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
         //valid moves are up, down, left, or right for any direction
 
-        String direction;
-
         // checks to see if there is a piece in the way
-        if ((startRow != endRow) && (startCol != endCol)) {
-            return false;
+        if ((startRow == endRow) || (startCol == endCol)) {
+            return true;
         }
-        return true;
 
-
-        // Check if the move is valid (within one square in all directions)
-        return true;
+        return false;
     }
 
 }
