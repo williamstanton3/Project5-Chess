@@ -87,9 +87,32 @@ public class Game {
      * a loop that runs until a winner is declared
      */
     public void gameLoop() {
+        public void gameLoop() {
         Scanner sc = new Scanner(System.in);
         Map<String, Integer> userMove;
         int moves = 0;
+
+        while (moves < 400) {
+            gameBoard.print();
+            boolean validMove = false;
+            try {
+                userMove = getPlayerMove();
+                gameBoard.play(currentPlayer, userMove.get("startRow"), userMove.get("startCol"), userMove.get("endRow"), userMove.get("endCol"));
+
+                if (gameBoard.hasWon(currentPlayer.getColor())) {
+                    gameBoard.print();
+                    System.out.println(currentPlayer.getName() + " WINS");
+                    break;
+                }
+
+                switchPlayer();
+                moves ++;
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
 
         while (moves < 50) {
             gameBoard.print(); // print new board
