@@ -87,7 +87,6 @@ public class Game {
      * a loop that runs until a winner is declared
      */
     public void gameLoop() {
-        public void gameLoop() {
         Scanner sc = new Scanner(System.in);
         Map<String, Integer> userMove;
         int moves = 0;
@@ -106,32 +105,10 @@ public class Game {
                 }
 
                 switchPlayer();
-                moves ++;
-            }
-            catch (Exception e) {
+                moves++;
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
-        }
-
-        while (moves < 50) {
-            gameBoard.print(); // print new board
-
-            userMove = getPlayerMove();
-
-            while(true) {
-                // try to make the given move from the user, throw exception if move is invalid
-                try {
-                    gameBoard.play(currentPlayer, userMove.get("startRow"), userMove.get("startCol"), userMove.get("endRow"), userMove.get("endCol"));
-                    break;
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    break;
-                }
-            }
-            switchPlayer(); // switch the player
-            moves++;
         }
     }
 }
