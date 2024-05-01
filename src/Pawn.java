@@ -19,7 +19,7 @@ public class Pawn extends Piece {
      * @return true if the move is valid, false if it's not
      */
     @Override
-    public boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
+    public boolean isValidMove(Piece[][] board, int startRow, int startCol, int endRow, int endCol) {
         // On its first move, the pawn can move two spaces
         if (!beenMoved) {
             if (endRow - startRow == 2 && endCol == startCol) {
@@ -42,4 +42,4 @@ public class Pawn extends Piece {
         }
         return false;
     }
- }
+}

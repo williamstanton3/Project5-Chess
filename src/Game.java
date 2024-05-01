@@ -91,7 +91,7 @@ public class Game {
         Map<String, Integer> userMove;
         int moves = 0;
 
-        while (moves < 2) {
+        while (moves < 50) {
             gameBoard.print(); // print new board
 
             userMove = getPlayerMove();
