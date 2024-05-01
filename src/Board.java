@@ -224,26 +224,30 @@ public class Board {
      */
     public void play(Player currentPlayer, int startRow, int startCol, int endRow, int endCol) throws Exception {
         while (true) {
-            if (endCol < 0 || endCol > SIZE * SIZE) {
+            // throws exception if endRow or endCol are too large or too small
+            if (endCol < 0 || endCol > (SIZE * SIZE) || endRow < 0 || endRow > (SIZE * SIZE)) {
                 throw new Exception("CANNOT PLAY THERE");
             }
 
-            // checks to see if the starting piece is valid
+            // throws exception if the currentPlayer's color doesn't equal the starting Piece's color
             if (!currentPlayer.getColor().equals(getPiece(startRow, startCol).getColor())) {
                 throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
             }
 
-            // checks to see if ending spot is valid
+            // throws exception if the ending Spot is already taken by the user
             if (isFull(endRow, endCol)) {
                 if (currentPlayer.getColor().equals(getPiece(endRow, endCol).getColor())) {
                     throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
                 }
             }
 
-            // checks to see if the move is valid based on the rules
-            else if (!getPiece(startRow, endRow).isValidMove(startRow, startCol, endRow, endCol)) {
+            // throws exception if move is against the rules
+            else if (!getPiece(startRow, endRow).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
                 throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
             }
+
+            // throws exception if there is a piece in the way
+
 
             // checks to see if endingSpot is empty
             else if (currentBoard[endRow][endCol].isEmpty()) {

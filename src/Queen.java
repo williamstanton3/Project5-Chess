@@ -19,7 +19,7 @@ public class Queen extends Piece {
      * @return true if the move is valid, false if it's not
      */
     @Override
-    public boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
+    public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         //valid moves are in all directions for one square.
 
         // Check if the move is valid (within one square in all directions)
