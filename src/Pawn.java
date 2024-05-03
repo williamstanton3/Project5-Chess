@@ -21,22 +21,27 @@ public class Pawn extends Piece {
     @Override
     public boolean isValidMove(Piece[][] board, int startRow, int startCol, int endRow, int endCol) {
         // On its first move, the pawn can move two spaces
+
         if (!beenMoved) {
-            if (endRow - startRow == 2 && endCol == startCol) {
+            if (Math.abs(endRow - startRow) == 2 && endCol == startCol) {
+                beenMoved = true;
+                return true;
+            }
+            if (Math.abs(endRow - startRow) == 1 && endCol == startCol) {
                 beenMoved = true;
                 return true;
             }
         }
         // On any other move, the pawn can only move one space
         else {
-            if (endRow - startRow == 1 && endCol == startCol) {
+            if (Math.abs(endRow - startRow) == 1 && endCol == startCol) {
                 return true;
             }
         }
 
         // If there is an enemy piece in the diagonal, it can move there
         if (Math.abs(endCol - startCol) == 1 && endRow - startRow == 1) {
-            if (Board.isFull(endRow, endCol)) {
+            if (!(board[endRow][endCol] == null)) {
                 return true;
             }
         }

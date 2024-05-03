@@ -198,12 +198,12 @@ public class Board {
 
     public boolean hasWon(String color) {
         if (color.equals("white")) {
-            if (!blackAlive.contains(blackKing)) {
+            if (blackDead.contains(blackKing)) {
                 return true;
             }
         }
         if (color.equals("black")) {
-            if (!whiteAlive.contains(whiteKing)) {
+            if (whiteDead.contains(whiteKing)) {
                 return true;
             }
         }
@@ -241,11 +241,10 @@ public class Board {
             }
 
             // throws exception if move is against the rules
-            if (!getPiece(startRow, endRow).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
+            if (!getPiece(startRow, startCol).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
                 throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
             }
 
-            // CHECK TO SEE IF THERE'S A PIECE IN THE WAY
 
             // if the ending spot is empty
             if (!isFull(endRow, endCol)) {

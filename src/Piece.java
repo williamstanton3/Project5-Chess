@@ -99,7 +99,10 @@ abstract class Piece {
     }
 
     public boolean isEmpty() {
-        return !color.equals("white") && !color.equals("black");
+        if (color.equals("white") || color.equals("black")) {
+            return false;
+        }
+        return true;
     }
 
 }

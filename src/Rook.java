@@ -20,6 +20,7 @@ public class Rook extends Piece {
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         //valid moves are up, down, left, or right for any direction
 
+
         boolean isVert;
         String direction;
 
@@ -46,7 +47,7 @@ public class Rook extends Piece {
             }
         }
 
-        if (!isVert) {
+        else { // direction is horizontal
             // checks to see if move is left or right
             if (startCol < endCol) {
                 direction = "right";
@@ -57,10 +58,11 @@ public class Rook extends Piece {
         }
 
 
+
         // returns false if there is a piece in the way
         if (isVert) {
             if (direction.equals("down")) {
-                for (int i = startRow; i < endRow; i++) {
+                for (int i = startRow + 1; i < endRow; i++) {
                     // if the board at the given index is full, return false because there is a piece in the way
                     if (!board[i][startCol].isEmpty()) {
                         return false;
@@ -69,18 +71,17 @@ public class Rook extends Piece {
             }
             // else direction must be up
             else {
-                for (int i = startRow; i > endRow; i--) {
+                for (int i = startRow -1; i > endRow; i--) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!board[i][startCol].isEmpty()) {
+                    if (!(board[i][startCol] == null)) {
+                        System.out.println(board[i][startCol].getCharacter());
                         return false;
                     }
                 }
             }
         }
 
-
-
-        return true;
+         return true;
     }
 
 }
