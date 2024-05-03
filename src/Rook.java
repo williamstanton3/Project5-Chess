@@ -29,8 +29,14 @@ public class Rook extends Piece {
         }
 
         // checks to see if move is vertical
-        else if (startCol == endCol) {
+        if (startCol == endCol) {
             isVert = true;
+        }
+        else {
+            isVert = false;
+        }
+
+        if (isVert) {
             // checks to see if move is up or down
             if (startRow < endRow) {
                 direction = "down";
@@ -40,11 +46,8 @@ public class Rook extends Piece {
             }
         }
 
-        // move is horizontal
-        else {
-            isVert = false;
-
-            // checks to see if the move is left or right
+        if (!isVert) {
+            // checks to see if move is left or right
             if (startCol < endCol) {
                 direction = "right";
             }
@@ -52,6 +55,7 @@ public class Rook extends Piece {
                 direction = "left";
             }
         }
+
 
         // returns false if there is a piece in the way
         if (isVert) {
@@ -73,7 +77,6 @@ public class Rook extends Piece {
                 }
             }
         }
-
 
 
 

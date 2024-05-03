@@ -4,9 +4,7 @@ import java.util.List;
 
 public class scratch {
     public static void main(String[] args) {
-        Board b = new Board();
-        b.print();
-
-        System.out.println(b.getPiece(3,3).getCharacter());
+        Player player1 = new Player("bill", "white");
+        Player player2 = new Player("charlie", "black");
     }
 }

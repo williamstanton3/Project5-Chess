@@ -5,7 +5,7 @@ public class Pawn extends Piece {
      * constructor that creates a pawn of the given color
      * @param color of the pawn
      */
-    public Pawn(String color, char row, int col) {
+    public Pawn(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
             setChar((char)9823);

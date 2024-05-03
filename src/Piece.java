@@ -31,6 +31,9 @@ abstract class Piece {
      * @return the ches character
      */
     public char getCharacter() {
+        if (color.equals("empty")) {
+            return ' ';
+        }
         return character;
     }
     /**
@@ -74,7 +77,7 @@ abstract class Piece {
         character = newChar;
     }
 
-    public Piece capturePiece(Piece[][] board, int startRow, int startCol, int endRow, int endCol) {
+    public void capturePiece(Piece[][] board, int startRow, int startCol, int endRow, int endCol) {
         //temporary piece object that will end up holding the piece thats at the designated end point
         Piece pieceAtDestination = null;
 
@@ -87,12 +90,12 @@ abstract class Piece {
                 System.out.println(color + " captures opponent's piece at (" + endRow + ", " + endCol + ")");
             }
         }
-        if(pieceAtDestination.getColor() == "black"){
-            Board.whiteDead.add(pieceAtDestination);
-        }
-        else{
-            board.blackDead.add(pieceAtDestination);
-        }
+//        if(pieceAtDestination.getColor() == "black"){
+//            Board.whiteDead.add(pieceAtDestination);
+//        }
+//        else{
+//            board.blackDead.add(pieceAtDestination);
+//        }
     }
 
     public boolean isEmpty() {

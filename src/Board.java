@@ -84,8 +84,8 @@ public class Board {
 
         // initialize white pieces
         // pawn 1
-        Pawn whitePawn1 = new Pawn("white", 'G', 0);
-        currentBoard[6][0] = whitePawn1;
+//        Pawn whitePawn1 = new Pawn("white", 'G', 0);
+//        currentBoard[6][0] = whitePawn1;
         // pawn 2
         Pawn whitePawn2 = new Pawn("white", 'G', 1);
         currentBoard[6][1] = whitePawn2;
@@ -180,8 +180,9 @@ public class Board {
     }
 
     public Piece getPiece (int row, int col) {
-        if (currentBoard[row][col] == null) {
-            return null;
+        Piece p = new EmptyPiece("empty", -1, -1);
+        if (!isFull(row, col)) {
+            return p;
         }
         else {
             return currentBoard[row][col];
@@ -229,32 +230,36 @@ public class Board {
             if (endCol < 0 || endCol > (SIZE * SIZE) || endRow < 0 || endRow > (SIZE * SIZE)) {
                 throw new Exception("CANNOT PLAY THERE");
             }
+            // throws exception if the starting spot is empty
+            if (!isFull(startRow, startCol)) {
+                throw new Exception("CANNOT PLAY THERE. THE STARTING PIECE IS EMPTY");
+            }
 
             // throws exception if the currentPlayer's color doesn't equal the starting Piece's color
             if (!currentPlayer.getColor().equals(getPiece(startRow, startCol).getColor())) {
                 throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
             }
 
-            // throws exception if the ending Spot is already taken by the user
-            if (isFull(endRow, endCol)) {
+            // throws exception if move is against the rules
+            if (!getPiece(startRow, endRow).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
+                throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
+            }
+
+            // CHECK TO SEE IF THERE'S A PIECE IN THE WAY
+
+            // if the ending spot is empty
+            if (!isFull(endRow, endCol)) {
+                movePiece(startRow, startCol, endRow, endCol);
+                break;
+            }
+            // if the ending spot is full
+            else {
+                // throws exception if the ending Spot is already taken by the user
                 if (currentPlayer.getColor().equals(getPiece(endRow, endCol).getColor())) {
                     throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
                 }
             }
 
-            // throws exception if move is against the rules
-            else if (!getPiece(startRow, endRow).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
-                throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
-            }
-
-            // throws exception if there is a piece in the way
-
-
-            // checks to see if endingSpot is empty
-            else if (currentBoard[endRow][endCol].isEmpty()) {
-                movePiece(startRow, startCol, endRow, endCol);
-                break;
-            }
         }
 
 
