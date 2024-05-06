@@ -1,8 +1,10 @@
 public class Bishop extends Piece {
 
     /**
-     * constructor that creates a bishop of the given color
-     * @param color of the bishop
+     * a constructor that creates a bishop of a given color at a given location
+     * @param color the color of the bishop (black or white)
+     * @param row the starting row
+     * @param col the starting column
      */
     public Bishop(String color, char row, int col) {
         super(color, row, col);
@@ -15,14 +17,21 @@ public class Bishop extends Piece {
     }
 
     /**
-     * checks to see if a given move is valid based on the rules of the game
-     * @return true if the move is valid, false if it's not
+     * checks to see if the given move is valid based on the rules
+     * a bishop can move diagonally in any direction for any distance, but cannot jump over pieces
+     * @param board the current board
+     * @param startRow the starting row
+     * @param startCol the starting column
+     * @param endRow the ending row
+     * @param endCol the ending column
+     * @return true if the move is valid, false if it is not
      */
     @Override
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
-        //valid moves are in all directions for one square.
+
+        // CHECK TO SEE IF THERE IS A PIECE IN THE WAY
 
         // Check if the move is valid (diagonal)
-        return (startRow - startCol == endRow - endCol);
+        return (Math.abs(startRow - startCol) == Math.abs(endRow - endCol));
     }
 }

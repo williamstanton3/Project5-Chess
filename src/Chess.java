@@ -18,8 +18,6 @@ public class Chess {
         g.gameLoop();
     }
 
-
-
     // idea: we have to use two different kinds of collections
     // we can use a list (arraylist probably) easily for the game
     // i think we should use a map to track which users have won which times

@@ -23,7 +23,7 @@ public class Queen extends Piece {
         //valid moves are in all directions for one square.
 
         // Check if the move is valid (within one square in all directions)
-        return ((startRow == endRow) || (startCol == endCol) || (startRow - endRow == startCol - endCol));
+        return ((startRow == endRow) || (startCol == endCol) || (Math.abs(startRow - endRow) == Math.abs(startCol - endCol)));
 
     }
 }

@@ -20,7 +20,6 @@ public class Rook extends Piece {
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         //valid moves are up, down, left, or right for any direction
 
-
         boolean isVert;
         String direction;
 

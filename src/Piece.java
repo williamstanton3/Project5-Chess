@@ -36,73 +36,16 @@ abstract class Piece {
         }
         return character;
     }
-    /**
-     *
-     * @return the row
-     */
-    public int getRow() {
-        return row;
-    }
-    /**
-     *
-     * @return the col
-     */
-    public int getCol(){
-        return col;
-    }
 
     public String getColor() {
         return color;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-    /**
-     *
-     * @param newRow
-     */
-
-    public void setRow(char newRow){
-        row = newRow;
-    }
-    /**
-     *
-     * @param newCol
-     */
-    public void setCol(int newCol){
-        col = newCol;
     }
     public void setChar(char newChar){
         character = newChar;
     }
 
-    public void capturePiece(Piece[][] board, int startRow, int startCol, int endRow, int endCol) {
-        //temporary piece object that will end up holding the piece thats at the designated end point
-        Piece pieceAtDestination = null;
-
-        //make sure that the move is valid
-        if (isValidMove(board, startRow, startCol, endRow, endCol)) {
-            pieceAtDestination = board[endRow][endCol];
-            if (pieceAtDestination != null && !pieceAtDestination.getColor().equals(color)) {
-
-                // Capture the opponent's piece
-                System.out.println(color + " captures opponent's piece at (" + endRow + ", " + endCol + ")");
-            }
-        }
-//        if(pieceAtDestination.getColor() == "black"){
-//            Board.whiteDead.add(pieceAtDestination);
-//        }
-//        else{
-//            board.blackDead.add(pieceAtDestination);
-//        }
-    }
-
     public boolean isEmpty(Piece [][] board, int row, int col) {
-        if (board[row][col] == null) {
-            return true;
-        }
-        return false;
+        return board[row][col] == null;
     }
 
 }

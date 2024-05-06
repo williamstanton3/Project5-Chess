@@ -1,19 +1,27 @@
 import java.util.*;
 
 public class Game {
+    /**
+     * the first player in the game
+     */
     private Player player1;
+    /**
+     * the second player in the game
+     */
     private Player player2;
     /**
      * the current gameBoard
      */
     private Board gameBoard;
     /**
-     * the current Player (white or black)
+     * the player whose turn it is
      */
     private Player currentPlayer;
 
     /**
-     * creates and runs the game
+     * constructor that creates a gameBoard with the given players
+     * @param player1 the first player (white)
+     * @param player2 the second player (black)
      */
     public Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -21,11 +29,11 @@ public class Game {
 
         gameBoard = new Board();
         currentPlayer = player1;
-
-        // create piece classes for both teams
-        // 8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen for each
     }
 
+    /**
+     * switches the current Player
+     */
     public void switchPlayer() {
         if (currentPlayer == player1) {
             currentPlayer = player2;
@@ -35,8 +43,14 @@ public class Game {
         }
     }
 
+    /**
+     * converts a given char to its respective int (A = 0, B = 1, ...)
+     * purpose: the user will enter the char of the row in the gameBoard, which must be converted to an int
+     * @param c the given char
+     * @return and int that corresponds with the given char
+     */
     public int toInt(char c) {
-        char [] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
+        char [] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}; // the 8 rows on the board
         for (int i = 0; i < chars.length; i++) {
             if (c == chars[i]) {
                 return i;
@@ -45,28 +59,41 @@ public class Game {
         return -1;
     }
 
+    /**
+     * gets the player move from the user and stores it in a map of Strings (starting and ending rows and columns) and ints (their values)
+     * does not check to see if the move is valid
+     * @return a map with the player move
+     */
     public Map<String, Integer> getPlayerMove() {
         Map<String, Integer> userMove = new HashMap<>();
         Scanner sc = new Scanner(System.in);
+        int startRow;
+        int startCol;
+        int endRow;
+        int endCol;
+
         while (true) {
             try {
-                // get starting piece from user
-                int startRow;
-                int startCol;
                 System.out.println(currentPlayer.getName() + "'s move");
-                System.out.print("Enter the row and column of the piece you want to move: ");
+
+                // gets starting row from user
+                System.out.print("Starting Row: " );
                 char startRowChar = sc.next().charAt(0);
-                startRow = toInt(startRowChar);
+                startRow = toInt(startRowChar); // converts char to corresponding int
+
+                // gets starting Column from user
+                System.out.print("Starting Column: ");
                 startCol = sc.nextInt();
 
-                Piece p = gameBoard.getPiece(startRow, startCol);
-                // get location where the user wants to move the piece
-                int endRow;
-                int endCol;
-                System.out.print("Enter the row and column of the piece you want to move: ");
+                // gets ending row from user
+                System.out.print("Ending Row: " );
                 char endRowChar = sc.next().charAt(0);
-                endRow = toInt(endRowChar);
+                endRow = toInt(endRowChar); // converts char to corresponding int
+
+                // gets ending Column from user
+                System.out.print("Ending Column: ");
                 endCol = sc.nextInt();
+
 
                 // add the moves to the map
                 userMove.put("startRow", startRow);
@@ -76,6 +103,8 @@ public class Game {
 
                 return userMove;
             }
+
+            // throw exception if the user doesn't enter valid input
             catch (InputMismatchException e) {
                 System.out.println("Bad Input");
                 sc.nextLine();
@@ -84,29 +113,32 @@ public class Game {
     }
 
     /**
-     * a loop that runs until a winner is declared
+     * the game loop that runs until someone wins the game
+     * players alternate turns to move a single piece on the board based on the rules of chess
+     * the goal is to kill the opponent's king
      */
     public void gameLoop() {
-        Scanner sc = new Scanner(System.in);
         Map<String, Integer> userMove;
-        int moves = 0;
+        boolean hasWon = false;
 
-        while (moves < 400) {
+        while (!hasWon) { // iterates until someone wins
             gameBoard.print();
-            boolean validMove = false;
+
             try {
                 userMove = getPlayerMove();
                 gameBoard.play(currentPlayer, userMove.get("startRow"), userMove.get("startCol"), userMove.get("endRow"), userMove.get("endCol"));
 
+                // checks to see if the current player has won
                 if (gameBoard.hasWon(currentPlayer.getColor())) {
                     gameBoard.print();
                     System.out.println(currentPlayer.getName() + " WINS");
-                    break;
+                    hasWon = true;
                 }
 
                 switchPlayer();
-                moves++;
-            } catch (Exception e) {
+            }
+            // throws exception if move isn't valid
+            catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
