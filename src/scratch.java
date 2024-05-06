@@ -6,5 +6,7 @@ public class scratch {
     public static void main(String[] args) {
         Player player1 = new Player("bill", "white");
         Player player2 = new Player("charlie", "black");
+
+
     }
 }

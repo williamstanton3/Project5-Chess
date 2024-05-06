@@ -57,14 +57,12 @@ public class Rook extends Piece {
             }
         }
 
-
-
         // returns false if there is a piece in the way
         if (isVert) {
             if (direction.equals("down")) {
                 for (int i = startRow + 1; i < endRow; i++) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!board[i][startCol].isEmpty()) {
+                    if (!isEmpty(board, i, startCol)) {
                         return false;
                     }
                 }
@@ -73,8 +71,27 @@ public class Rook extends Piece {
             else {
                 for (int i = startRow -1; i > endRow; i--) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!(board[i][startCol] == null)) {
-                        System.out.println(board[i][startCol].getCharacter());
+                    if (!isEmpty(board, i, startCol)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        // else direction must be horizontal
+        else {
+            if (direction.equals("right")) {
+                for (int i = startCol + 1; i < endCol; i++) {
+                    // if the board at the given index is full, return false because there is a piece in the way
+                    if (!isEmpty(board, startRow, i)) {
+                        return false;
+                    }
+                }
+            }
+            // else direction must be left
+            else {
+                for (int i = startCol -1; i > endCol; i--) {
+                    // if the board at the given index is full, return false because there is a piece in the way
+                    if (!isEmpty(board, startRow, i)) {
                         return false;
                     }
                 }

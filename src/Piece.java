@@ -98,11 +98,11 @@ abstract class Piece {
 //        }
     }
 
-    public boolean isEmpty() {
-        if (color.equals("white") || color.equals("black")) {
-            return false;
+    public boolean isEmpty(Piece [][] board, int row, int col) {
+        if (board[row][col] == null) {
+            return true;
         }
-        return true;
+        return false;
     }
 
 }
