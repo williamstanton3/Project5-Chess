@@ -61,7 +61,7 @@ public class Rook extends Piece {
             if (direction.equals("down")) {
                 for (int i = startRow + 1; i < endRow; i++) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!isEmpty(board, i, startCol)) {
+                    if (board[i][startCol].isEmpty()) {
                         return false;
                     }
                 }
@@ -70,7 +70,7 @@ public class Rook extends Piece {
             else {
                 for (int i = startRow -1; i > endRow; i--) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!isEmpty(board, i, startCol)) {
+                    if (!board[i][startCol].isEmpty()) {
                         return false;
                     }
                 }
@@ -81,7 +81,7 @@ public class Rook extends Piece {
             if (direction.equals("right")) {
                 for (int i = startCol + 1; i < endCol; i++) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!isEmpty(board, startRow, i)) {
+                    if (!board[startRow][i].isEmpty()) {
                         return false;
                     }
                 }
@@ -90,7 +90,7 @@ public class Rook extends Piece {
             else {
                 for (int i = startCol -1; i > endCol; i--) {
                     // if the board at the given index is full, return false because there is a piece in the way
-                    if (!isEmpty(board, startRow, i)) {
+                    if (!board[startRow][i].isEmpty()) {
                         return false;
                     }
                 }

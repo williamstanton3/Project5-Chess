@@ -2,14 +2,6 @@ import java.util.ArrayList;
 
 public class Board {
     /**
-     * an arrayList that holds all the white pieces on the baord
-     */
-    private ArrayList<Piece> whiteAlive = new ArrayList<>();
-    /**
-     * an arrayList that holds all the black pieces on the board
-     */
-    private ArrayList<Piece> blackAlive = new ArrayList<>();
-    /**
      * an arrayList that holds all the white pieces that have been killed
      */
     private ArrayList<Piece> whiteDead = new ArrayList<>();
@@ -17,7 +9,6 @@ public class Board {
      * an arrayList that holds all the black pieces that have been killed
      */
     private ArrayList<Piece> blackDead = new ArrayList<>();
-
 
     private static final int SIZE = 8;
 
@@ -154,145 +145,121 @@ public class Board {
         System.out.println("");
         System.out.println("---------------------------------");
     }
-    /**
-     * gets the column of a given position
-     * @param position a square on the chess board
-     * @return the column of that square
-     */
-
-    public int getColumn(int position) {
-        if (position == 0) {
-            return 1;
-        }
-        return (position -1) % SIZE;
-    }
 
     /**
-     * gets the row of a given position
-     * @param position a square on the chess board
-     * @return the row of that square
+     * gets a Piece given a row and column on the board
+     * @param row the given row
+     * @param col the given column
+     * @return the piece at that location or a dummy piece if the location is empty
      */
-    public int getRow(int position) {
-        if (position == 0) {
-            return 1;
-        }
-        return (position -1) % SIZE;
-    }
-
     public Piece getPiece (int row, int col) {
-        if (currentBoard[row][col] == null) {
-            return null;
+        // creates a dummy piece to return if the spot given by the row and col is empty
+        Piece p = new EmptyPiece("empty", -1, -1);
+        if (!isFull(row, col)) {
+            return p;
         }
         else {
             return currentBoard[row][col];
         }
     }
 
-    public static boolean isFull(int row, int col) {
-        if (currentBoard[row][col] != null) {
-            return true;
-        }
-        return false;
+    /**
+     * checks to see if a given location on the board is full or not
+     * @param row the given row
+     * @param col the given column
+     * @return true if there is a piece at that location, false if there is not
+     */
+    public boolean isFull(int row, int col) {
+        return currentBoard[row][col] != null;
     }
 
+    /**
+     * checks to see if a player of a given color has won
+     * @param color the color of the current player
+     * @return true if the current player's opponent's king has been killed (and is in the arrayList of dead pieces)
+     */
     public boolean hasWon(String color) {
         if (color.equals("white")) {
-            if (!blackAlive.contains(blackKing)) {
+            // if the black king is dead, the white player has won
+            if (blackDead.contains(blackKing)) {
                 return true;
             }
         }
         if (color.equals("black")) {
-            if (!whiteAlive.contains(whiteKing)) {
+            // if the white king is dead, the black player has won
+            if (whiteDead.contains(whiteKing)) {
                 return true;
             }
         }
-
         return false;
     }
 
+    /**
+     * moves a piece on the board given the starting and ending rows and columns
+     * @param startRow the starting Row
+     * @param startCol the starting Column
+     * @param endRow the ending Row
+     * @param endCol the ending Column
+     */
     public void movePiece(int startRow, int startCol, int endRow, int endCol) {
-        currentBoard[endRow][endCol] = getPiece(startRow, startCol);
-        currentBoard[startRow][startCol] = null;
+        currentBoard[endRow][endCol] = getPiece(startRow, startCol); // moves the piece at the starting spot to the ending spot
+        currentBoard[startRow][startCol] = null; // makes the starting spot empty now that the piece has moved
     }
 
-
     /**
-     * Add a move to the board
-     * @param currentPlayer white or black
-     * @param startRow the location of the piece the user wants to move
-     * @param endRow the location where the user wants to move the piece
-     * @throws Exception if the location is invalid or is taken by a piece of the same color as user
+     * takes input and checks to see if the given move is valid based on the state of the board and the rules of the games
+     * if the move is valid, it updates the board
+     * @param currentPlayer the player who's turn it is
+     * @param startRow the row of the piece the player wants to move
+     * @param startCol the column of the piece the player wants to move
+     * @param endRow the row where the player wants to move his piece
+     * @param endCol the column where the player wants to move his piece
+     * @throws Exception if the move is invalid for a variety of reasons
      */
     public void play(Player currentPlayer, int startRow, int startCol, int endRow, int endCol) throws Exception {
-        while (true) {
-            // throws exception if endRow or endCol are too large or too small
-            if (endCol < 0 || endCol > (SIZE * SIZE) || endRow < 0 || endRow > (SIZE * SIZE)) {
-                throw new Exception("CANNOT PLAY THERE");
-            }
-
-            // throws exception if the currentPlayer's color doesn't equal the starting Piece's color
-            if (!currentPlayer.getColor().equals(getPiece(startRow, startCol).getColor())) {
-                throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
-            }
-
-            // throws exception if the ending Spot is already taken by the user
-            if (isFull(endRow, endCol)) {
-                if (currentPlayer.getColor().equals(getPiece(endRow, endCol).getColor())) {
-                    throw new Exception("CANNOT PLAY THERE: YOU CAN'T MOVE TO A SPOT WHERE YOU ALREADY HAVE A PIECE");
-                }
-            }
-
-            // throws exception if move is against the rules
-            else if (!getPiece(startRow, endRow).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
-                throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
-            }
-
-            // throws exception if there is a piece in the way
-
-
-            // checks to see if endingSpot is empty
-            else if (currentBoard[endRow][endCol].isEmpty()) {
-                movePiece(startRow, startCol, endRow, endCol);
-                break;
-            }
+        // throws exception if endRow or endCol are too large or too small
+        if (endCol < 0 || endCol > (SIZE * SIZE) || endRow < 0 || endRow > (SIZE * SIZE)) {
+            throw new Exception("CANNOT PLAY THERE. ITS OUTSIDE THE BOARD");
         }
 
-
-        // first, check to see if the move is valid (based on rules)
-        // check to see if there is a piece in the endingSpot
-        // if there is, check to see which color it is
-        // if its color is the same as the currentPlayer's, invalid move
-        // if it's not, move the piece to the endingSpot, get rid of old piece
-    }
-
-    /**
-     * checks to see if the char at a given location is white
-     * @param row of the location
-     * @param col of the location
-     * @return true or false
-     */
-    public boolean isWhite(int row, int col) {
-        for (int i = 9818; i < 9823; i++) {
-            if (currentBoard[row][col].getCharacter() == (char)i) {
-                return true;
-            }
+        // throws exception if the starting spot is empty
+        else if (!isFull(startRow, startCol)) {
+            throw new Exception("CANNOT PLAY THERE. THE STARTING PIECE IS EMPTY");
         }
-        return false;
-    }
 
-    /**
-     * checks to see if the char at a given location is black
-     * @param row of the location
-     * @param col of the location
-     * @return true of false
-     */
-    public boolean isBlack(int row, int col) {
-        for (int i = 9812; i < 9817; i++) {
-            if (currentBoard[row][col].getCharacter() == (char)i) {
-                return true;
-            }
+        // throws exception if the ending spot is taken by the user
+        else if (currentPlayer.getColor().equals(getPiece(endRow, endCol).getColor())) {
+            throw new Exception("CANNOT PLAY THERE. YOU ALREADY HAVE A PIECE IN THE ENDING SPOT");
         }
-        return false;
+
+        // throws exception if the currentPlayer's color doesn't equal the starting Piece's color
+        else if (!currentPlayer.getColor().equals(getPiece(startRow, startCol).getColor())) {
+            throw new Exception("CANNOT PLAY THERE: THAT'S NOT YOUR PIECE");
+        }
+
+        // throws exception if move is against the rules
+        else if (!getPiece(startRow, startCol).isValidMove(currentBoard, startRow, startCol, endRow, endCol)) {
+            throw new Exception("CANNOT MAKE THAT MOVE: IT'S AGAINST THE RULES");
+        }
+
+        // if passes the above tests, it is a valid move
+
+        // if the ending spot is empty
+        if (!isFull(endRow, endCol)) {
+            movePiece(startRow, startCol, endRow, endCol);
+        }
+
+        // if the ending spot is full
+        else {
+            // add the dead piece to the appropriate arrayList
+            if (currentPlayer.getColor().equals("white")) {
+                blackDead.add(currentBoard[endRow][endCol]);
+            }
+            if (currentPlayer.getColor().equals("black")) {
+                whiteDead.add(currentBoard[endRow][endCol]);
+            }
+            movePiece(startRow, startCol, endRow, endCol);
+        }
     }
 }
 
