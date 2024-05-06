@@ -57,8 +57,105 @@ abstract class Piece {
         character = newChar;
     }
 
+
     public boolean isEmpty() {
         return !color.equals("white") && !color.equals("black");
+    }
+
+
+    public boolean pieceInWayRook(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
+
+        String direction = "";
+
+        if (startCol < endCol) {
+            direction = "right";
+        } else if (startCol > endCol) {
+            direction = "left";
+        } else if (startRow > endRow) {
+            direction = "up";
+        } else if (startRow < endRow) {
+            direction = "down";
+        }
+
+
+        // if move is up
+        if (direction.equals("up")) {
+            for (int i = startRow - 1; i > endRow; i--) {
+                if (board[i][startCol] != null) {
+                    System.out.println(i);
+                    return true;
+                }
+            }
+        }
+        // if move is down
+        if (direction.equals("down")) {
+            for (int i = startRow + 1; i < endRow; i++) {
+                if (board[i][startCol] != null) {
+                    return true;
+                }
+            }
+        }
+
+        // if move is left
+        if (direction.equals("left")) {
+            for (int i = startCol - 1; i > endCol; i--) {
+                if (board[startRow][i] != null) {
+                    return true;
+                }
+            }
+        }
+
+        // if move is right
+        if (direction.equals("right")) {
+            for (int i = startCol + 1; i < endCol; i++) {
+                if (board[startRow][i] != null) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+
+
+    public boolean pieceInWayBishop(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
+        String directionHor;
+        String directionVert;
+
+        if (startCol < endCol) {
+            directionHor = "right";
+        }
+        else {
+            directionHor = "left";
+        }
+
+        if (startRow > endRow) {
+            directionVert = "up";
+        }
+        else {
+            directionVert = "down";
+        }
+
+        // if move is up and right
+        if (directionHor.equals("right") && (directionVert.equals("up"))) {
+            for (int i = startRow; i < endRow; i++) {
+                for (int j = startCol; j < endCol; j++) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // if move is up and left
+
+        // if move is down and right
+
+        // if move is down and left
+
+        return false;
+
     }
 
 }

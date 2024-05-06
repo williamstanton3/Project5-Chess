@@ -125,25 +125,49 @@ public class Board {
     }
 
     /**
+     * converts a given int to the corresponding char
+     * @param i an int
+     * @return a char
+     */
+    public char toChar(int i) {
+        int asciiValue = 65 + i;
+        return (char) asciiValue;
+    }
+
+    /**
      * prints the current Board
      */
     public void print() {
         for (int row = 0; row < SIZE; row++) {
             System.out.println("");
-            System.out.println("---------------------------------");
+            System.out.println("   -----------------------------------");
+            System.out.print(toChar(row) + "  "); // prints the row chars
 
             for (int col = 0; col < SIZE; col++) {
+                // if the spot doesn't have a piece in it
                 if (currentBoard[row][col] == null) {
-                    System.out.print("|    ");
+                    System.out.print("|");
+                    for (int i = 0; i < 4; i++) {
+                        System.out.print("\u2002");
+                    }
                 }
+                // if the spot has a piece in it
                 else {
-                    System.out.print("| " + currentBoard[row][col].getCharacter() + " ");
+                    System.out.print("|" + "\u2002" + currentBoard[row][col].getCharacter() + "\u2002");
                 }
+
             }
             System.out.print("|");
         }
         System.out.println("");
-        System.out.println("---------------------------------");
+        System.out.println("   -----------------------------------");
+        System.out.print("   ");
+
+        // print the column numbers
+        for (int i = 0; i < 8; i++) {
+            System.out.print("\u2002" + "\u2002" + i + "\u2002" + "\u2002");
+        }
+        System.out.println();
     }
 
     /**

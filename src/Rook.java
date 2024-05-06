@@ -20,81 +20,14 @@ public class Rook extends Piece {
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         //valid moves are up, down, left, or right for any direction
 
-        boolean isVert;
-        String direction;
-
-        // returns false if the piece tries to change row and column
-        if ((startRow != endRow) && (startCol != endCol)) {
+        if (startRow != endRow && startCol != endCol) {
+            System.out.println("hey 1");
             return false;
         }
 
-        // checks to see if move is vertical
-        if (startCol == endCol) {
-            isVert = true;
-        }
-        else {
-            isVert = false;
-        }
-
-        if (isVert) {
-            // checks to see if move is up or down
-            if (startRow < endRow) {
-                direction = "down";
-            }
-            else {
-                direction = "up";
-            }
-        }
-
-        else { // direction is horizontal
-            // checks to see if move is left or right
-            if (startCol < endCol) {
-                direction = "right";
-            }
-            else {
-                direction = "left";
-            }
-        }
-
-        // returns false if there is a piece in the way
-        if (isVert) {
-            if (direction.equals("down")) {
-                for (int i = startRow + 1; i < endRow; i++) {
-                    // if the board at the given index is full, return false because there is a piece in the way
-                    if (board[i][startCol].isEmpty()) {
-                        return false;
-                    }
-                }
-            }
-            // else direction must be up
-            else {
-                for (int i = startRow -1; i > endRow; i--) {
-                    // if the board at the given index is full, return false because there is a piece in the way
-                    if (!board[i][startCol].isEmpty()) {
-                        return false;
-                    }
-                }
-            }
-        }
-        // else direction must be horizontal
-        else {
-            if (direction.equals("right")) {
-                for (int i = startCol + 1; i < endCol; i++) {
-                    // if the board at the given index is full, return false because there is a piece in the way
-                    if (!board[startRow][i].isEmpty()) {
-                        return false;
-                    }
-                }
-            }
-            // else direction must be left
-            else {
-                for (int i = startCol -1; i > endCol; i--) {
-                    // if the board at the given index is full, return false because there is a piece in the way
-                    if (!board[startRow][i].isEmpty()) {
-                        return false;
-                    }
-                }
-            }
+        if (pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
+            System.out.println("hey 2");
+            return false;
         }
 
          return true;

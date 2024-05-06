@@ -29,9 +29,15 @@ public class Bishop extends Piece {
     @Override
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
 
-        // CHECK TO SEE IF THERE IS A PIECE IN THE WAY
+        if (Math.abs(startRow - endRow) != Math.abs(startCol - endCol)) {
+            return false;
+        }
 
-        // Check if the move is valid (diagonal)
-        return (Math.abs(startRow - startCol) == Math.abs(endRow - endCol));
+        if (pieceInWayBishop(board, startRow, startCol, endRow, endCol)) {
+            System.out.println("ayo");
+            return false;
+        }
+
+        return true;
     }
 }

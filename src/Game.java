@@ -78,7 +78,9 @@ public class Game {
 
                 // gets starting row from user
                 System.out.print("Starting Row: " );
-                char startRowChar = sc.next().charAt(0);
+                String startRowString = sc.next().toUpperCase();
+                char startRowChar = startRowString.charAt(0);
+
                 startRow = toInt(startRowChar); // converts char to corresponding int
 
                 // gets starting Column from user
@@ -87,7 +89,8 @@ public class Game {
 
                 // gets ending row from user
                 System.out.print("Ending Row: " );
-                char endRowChar = sc.next().charAt(0);
+                String endRowString = sc.next().toUpperCase();
+                char endRowChar = endRowString.charAt(0);
                 endRow = toInt(endRowChar); // converts char to corresponding int
 
                 // gets ending Column from user
