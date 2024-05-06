@@ -23,6 +23,7 @@ public class Chess {
     // i think we should use a map to track which users have won which times
     // kind of like an ultimate chess game that takes the users names before the game
     // and stores the winner in a map with an int that represents the number of times they have won
+    // might delete
 
     // another question: how will we print the chess symbols on the game board? and the colors?
 }
