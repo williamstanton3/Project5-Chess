@@ -14,8 +14,8 @@ public class Queen extends Piece {
     }
     /**
      * checks to see if a given move is valid based on the rules of the game
-     * @param startingSpot where the queen begins
-     * @param endingSpot where the queen ends
+     * @param startCol where the queen begins
+     * @param endCol where the queen ends
      * @return true if the move is valid, false if it's not
      */
     @Override
