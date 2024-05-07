@@ -24,20 +24,21 @@ public class Queen extends Piece {
 
 
         // check which direction the move is in
-        if (startRow == endRow) { // move is horizontal
-            if (!pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
+
+        if (startRow == endRow || startCol == endCol) { // move is horizontal or vertical
+            if (!pieceInWayStraight(board, startRow, startCol, endRow, endCol)) {
                 return true;
             }
         }
 
-        else if (startCol == endCol) { // move is vertical
-            if (!pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
-                return true;
-            }
-        }
+//        else if (startCol == endCol) { // move is vertical
+//            if (!pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
+//                return true;
+//            }
+//        }
 
         else if (Math.abs(startRow - endRow) == Math.abs(startCol - endCol)) // move is diagonal {
-            if (!pieceInWayBishop(board, startRow, startCol, endRow, endCol)) {
+            if (!pieceInWayDiagonal(board, startRow, startCol, endRow, endCol)) {
                 return true;
             }
 

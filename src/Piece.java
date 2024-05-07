@@ -3,7 +3,6 @@ abstract class Piece {
     private String color;
     private int row;
     private int col;
-    private int position;
 
     /**
      * Constructor that holds all the specs of the piece
@@ -16,7 +15,6 @@ abstract class Piece {
         this.row = row;
         this.col = col;
 
-        position = (col / 8) + row;
     }
 
     /**
@@ -58,15 +56,21 @@ abstract class Piece {
     }
 
 
-    public boolean isEmpty() {
-        return !color.equals("white") && !color.equals("black");
-    }
-
-
-    public boolean pieceInWayRook(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
+    /**
+     * checks to see if there is a piece in the way if move is straight (horizontal/vertical)
+     * written in Piece class so it can be accessed by both the rook and queen classes
+     * @param board the current board
+     * @param startRow the starting row
+     * @param startCol the starting column
+     * @param endRow the ending row
+     * @param endCol the ending column
+     * @return true if there is a piece in the way, false if there is not
+     */
+    public boolean pieceInWayStraight(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
 
         String direction = "";
 
+        // finds direction of move
         if (startCol < endCol) {
             direction = "right";
         } else if (startCol > endCol) {
@@ -76,7 +80,6 @@ abstract class Piece {
         } else if (startRow < endRow) {
             direction = "down";
         }
-
 
         // if move is up
         if (direction.equals("up")) {
@@ -116,12 +119,20 @@ abstract class Piece {
         }
 
         return false;
-
     }
 
 
-
-    public boolean pieceInWayBishop(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
+    /**
+     * checks to see if there is a piece in the way if the move is diagonal
+     * also written in piece class so it can be accessed by queen class as well as bishop class
+     * @param board
+     * @param startRow
+     * @param startCol
+     * @param endRow
+     * @param endCol
+     * @return
+     */
+    public boolean pieceInWayDiagonal(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         String directionHor;
         String directionVert;
 
@@ -139,49 +150,47 @@ abstract class Piece {
             directionVert = "down";
         }
 
-
-
         // if move is up and right
         if (directionHor.equals("right") && (directionVert.equals("up"))) {
+            int j = startCol + 1;
             for (int i = startRow -1; i > endRow; i--) {
-                for (int j = startCol + 1; j < endCol; j++) {
-                    if (board[i][j] != null) {
-                        return true;
-                    }
+                if (board[i][j] != null) {
+                    return true;
                 }
+                j++;
             }
         }
 
         // if move is up and left
         if (directionHor.equals("left") && (directionVert.equals("up"))) {
+            int j = startCol -1;
             for (int i = startRow -1; i > endRow; i--) {
-                for (int j = startCol - 1; j > endCol; j--) {
-                    if (board[i][j] != null) {
-                        return true;
-                    }
+                if (board[i][j] != null) {
+                    return true;
                 }
+                j++;
             }
         }
 
         // if move is down and right
         if (directionHor.equals("right") && (directionVert.equals("down"))) {
+            int j = startCol + 1;
             for (int i = startRow +1; i < endRow; i++) {
-                for (int j = startCol + 1; j < endCol; j++) {
-                    if (board[i][j] != null) {
-                        return true;
-                    }
+                if (board[i][j] != null) {
+                    return true;
                 }
+                j++;
             }
         }
 
         // if move is down and left
         if (directionHor.equals("left") && (directionVert.equals("down"))) {
+            int j = startCol -1;
             for (int i = startRow +1; i < endRow; i++) {
-                for (int j = startCol - 1; j > endCol; j--) {
-                    if (board[i][j] != null) {
-                        return true;
-                    }
+                if (board[i][j] != null) {
+                    return true;
                 }
+                j++;
             }
         }
 
