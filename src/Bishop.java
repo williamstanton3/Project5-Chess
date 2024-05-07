@@ -33,7 +33,7 @@ public class Bishop extends Piece {
             return false;
         }
 
-        if (pieceInWayBishop(board, startRow, startCol, endRow, endCol)) {
+        if (pieceInWayDiagonal(board, startRow, startCol, endRow, endCol)) {
             return false;
         }
 

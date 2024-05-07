@@ -24,7 +24,7 @@ public class Rook extends Piece {
             return false;
         }
 
-        if (pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
+        if (pieceInWayStraight(board, startRow, startCol, endRow, endCol)) {
             return false;
         }
 
