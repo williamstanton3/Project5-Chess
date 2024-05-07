@@ -285,6 +285,10 @@ public class Board {
             movePiece(startRow, startCol, endRow, endCol);
         }
     }
+
+    public Piece[][] getBoard() {
+        return currentBoard;
+    }
 }
 
 

@@ -12,7 +12,7 @@ public class Game {
     /**
      * the current gameBoard
      */
-    private Board gameBoard;
+    Board gameBoard;
     /**
      * the player whose turn it is
      */
@@ -145,5 +145,13 @@ public class Game {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public Board getGameBoard() {
+        return gameBoard; 
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }
