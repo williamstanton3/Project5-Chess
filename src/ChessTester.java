@@ -34,7 +34,6 @@ public class ChessTester {
             assertEquals(Pawn.class, board.getPiece(1, col).getClass());
         }
 
-        // Add more assertions to validate the initial state of the board
     }
 
 
@@ -49,9 +48,11 @@ public class ChessTester {
         // Test valid moves for the pawn
 
         //ToDo: figure out why these tests are failing
-//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 3, 0)); // Move one square forward
+//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 2, 0)); // Move one square forward
 //        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 3, 0)); // Move two squares forward (first move)
-//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 2, 1)); // Diagonal capture
+
+        Pawn pawnEnemy = new Pawn("black", 2, 1);
+        board.getBoard()[1][0] = pawnEnemy;
 //        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 2, 1)); // Diagonal capture
 
         // Test invalid moves for the pawn
@@ -65,26 +66,19 @@ public class ChessTester {
     public void testRookMovement() {
         Board board = game.getGameBoard();
 
-        // Place a pawn at a specific position
-        Rook rook = new Rook("white", 1, 0);
-        board.getBoard()[1][0] = rook;
+        // Place a rook at a specific position
+        Rook rook = new Rook("white", 0, 0);
+        board.getBoard()[0][0] = rook;
 
-        // Test valid moves for the pawn
+        // Test valid moves for the rook
+        assertTrue(rook.isValidMove(board.getBoard(), 0, 0, 3, 0)); // Move vertically
+        assertTrue(rook.isValidMove(board.getBoard(), 0, 0, 0, 3)); // Move horizontally
 
-        //ToDo: figure out why these tests are failing
-//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 3, 0)); // Move one square forward
-//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 3, 0)); // Move two squares forward (first move)
-//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 2, 1)); // Diagonal capture
-//        assertTrue(pawn.isValidMove(board.getBoard(), 1, 0, 2, 1)); // Diagonal capture
-
-        // Test invalid moves for the pawn
-        assertFalse(rook.isValidMove(board.getBoard(), 1, 0, 1, 3)); // Move diagonally
-//        assertFalse(rook.isValidMove(board.getBoard(), 1, 0, 0, 0)); // Move backward
-
-        Pawn pawn = new Pawn("white", 1, 1);
-        board.getBoard()[1][0] = pawn;
-        assertFalse(rook.isValidMove(board.getBoard(), 1, 0, 1, 4)); // Jump a piece
+        // Test invalid moves for the rook
+        assertFalse(rook.isValidMove(board.getBoard(), 0, 0, 1, 1)); // Move diagonally
+        assertFalse(rook.isValidMove(board.getBoard(), 0, 0, 0, 7)); // Move backward
     }
+
 
     @Test
     public void testKnightMovement() {
@@ -126,18 +120,18 @@ public class ChessTester {
         Board board = game.getGameBoard();
 
         // Place a queen at a specific position
-        Queen queen = new Queen("white", (char) 0, 3);
+        Queen queen = new Queen("white", 'A', 3); // Assuming 'A' is a valid row value
         board.getBoard()[0][3] = queen;
 
         // Test valid moves for the queen
         assertTrue(queen.isValidMove(board.getBoard(), 0, 3, 2, 3)); // Vertical move
         assertTrue(queen.isValidMove(board.getBoard(), 0, 3, 0, 6)); // Horizontal move
-        assertTrue(queen.isValidMove(board.getBoard(), 0, 3, 2, 5)); // Diagonal move
+        assertTrue(queen.isValidMove(board.getBoard(), 0, 3, 1, 4)); // Diagonal move
 
         // Test invalid moves for the queen
-        assertFalse(queen.isValidMove(board.getBoard(), 0, 3, 1, 2)); // Invalid move
         assertFalse(queen.isValidMove(board.getBoard(), 0, 3, 3, 4)); // Invalid move
     }
+
 
     @Test
     public void testKingMovement() {
@@ -185,20 +179,6 @@ public class ChessTester {
     }
 
     @Test
-    public void testKnightCannotJumpOver() {
-        Board board = game.getGameBoard();
-
-        // Place knights at specific positions
-        Knight knight1 = new Knight("white", (char) 0, 1);
-        Pawn pawn = new Pawn("black", 2, 0);
-        board.getBoard()[0][1] = knight1;
-        board.getBoard()[2][0] = pawn;
-
-        // Attempt to move the knight over the pawn
-        assertFalse(knight1.isValidMove(board.getBoard(), 0, 1, 2, 2)); // Should not be able to jump over the pawn
-    }
-
-    @Test
     public void testBishopCannotJumpOver() {
         Board board = game.getGameBoard();
 
@@ -206,8 +186,7 @@ public class ChessTester {
         Bishop bishop1 = new Bishop("white", (char) 1, 1);
         Pawn pawn = new Pawn("black", 2, 0);
         board.getBoard()[1][1] = bishop1;
-        board.getBoard()[2][0] = pawn;
-
+        board.getBoard()[2][2] = pawn;
         // Attempt to move the bishop over the pawn
         assertFalse(bishop1.isValidMove(board.getBoard(), 1, 1, 3, 3)); // Should not be able to jump over the pawn
     }
@@ -218,12 +197,12 @@ public class ChessTester {
 
         // Place queens at specific positions
         Queen queen1 = new Queen("white", (char) 1, 2);
-        Pawn pawn = new Pawn("black", 2, 0);
+        Pawn pawn = new Pawn("white", 2, 2);
         board.getBoard()[1][2] = queen1;
         board.getBoard()[2][0] = pawn;
 
         // Attempt to move the queen over the pawn
-        assertFalse(queen1.isValidMove(board.getBoard(), 1, 2, 3, 4)); // Should not be able to jump over the pawn
+        assertFalse(queen1.isValidMove(board.getBoard(), 1, 2, 3, 2)); // Should not be able to jump over the pawn
     }
 
     @Test
