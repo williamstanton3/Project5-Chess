@@ -21,12 +21,10 @@ public class Rook extends Piece {
         //valid moves are up, down, left, or right for any direction
 
         if (startRow != endRow && startCol != endCol) {
-            System.out.println("hey 1");
             return false;
         }
 
         if (pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
-            System.out.println("hey 2");
             return false;
         }
 

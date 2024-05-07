@@ -20,10 +20,28 @@ public class Queen extends Piece {
      */
     @Override
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
-        //valid moves are in all directions for one square.
+        //valid moves are in all directions for any distance
 
-        // Check if the move is valid (within one square in all directions)
-        return ((startRow == endRow) || (startCol == endCol) || (Math.abs(startRow - endRow) == Math.abs(startCol - endCol)));
+
+        // check which direction the move is in
+        if (startRow == endRow) { // move is horizontal
+            if (!pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
+                return true;
+            }
+        }
+
+        else if (startCol == endCol) { // move is vertical
+            if (!pieceInWayRook(board, startRow, startCol, endRow, endCol)) {
+                return true;
+            }
+        }
+
+        else if (Math.abs(startRow - endRow) == Math.abs(startCol - endCol)) // move is diagonal {
+            if (!pieceInWayBishop(board, startRow, startCol, endRow, endCol)) {
+                return true;
+            }
+
+        return false;
 
     }
 }

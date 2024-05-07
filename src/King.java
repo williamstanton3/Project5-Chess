@@ -20,7 +20,7 @@ public class King extends Piece {
      */
     @Override
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
-        //valid moves are in all directions for one square.
+        //valid moves are in all directions for one square
 
         // Calculate absolute differences in row and column indices
         int diffX = Math.abs(startRow - endRow);

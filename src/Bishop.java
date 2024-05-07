@@ -34,7 +34,6 @@ public class Bishop extends Piece {
         }
 
         if (pieceInWayBishop(board, startRow, startCol, endRow, endCol)) {
-            System.out.println("ayo");
             return false;
         }
 

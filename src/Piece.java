@@ -87,6 +87,7 @@ abstract class Piece {
                 }
             }
         }
+
         // if move is down
         if (direction.equals("down")) {
             for (int i = startRow + 1; i < endRow; i++) {
@@ -138,21 +139,51 @@ abstract class Piece {
             directionVert = "down";
         }
 
+
+
         // if move is up and right
         if (directionHor.equals("right") && (directionVert.equals("up"))) {
-            for (int i = startRow; i < endRow; i++) {
-                for (int j = startCol; j < endCol; j++) {
+            for (int i = startRow -1; i > endRow; i--) {
+                for (int j = startCol + 1; j < endCol; j++) {
                     if (board[i][j] != null) {
                         return true;
                     }
                 }
             }
         }
+
         // if move is up and left
+        if (directionHor.equals("left") && (directionVert.equals("up"))) {
+            for (int i = startRow -1; i > endRow; i--) {
+                for (int j = startCol - 1; j > endCol; j--) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+        }
 
         // if move is down and right
+        if (directionHor.equals("right") && (directionVert.equals("down"))) {
+            for (int i = startRow +1; i < endRow; i++) {
+                for (int j = startCol + 1; j < endCol; j++) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+        }
 
         // if move is down and left
+        if (directionHor.equals("left") && (directionVert.equals("down"))) {
+            for (int i = startRow +1; i < endRow; i++) {
+                for (int j = startCol - 1; j > endCol; j--) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+        }
 
         return false;
 
