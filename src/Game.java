@@ -24,9 +24,11 @@ public class Game {
      * @param player2 the second player (black)
      */
     public Game(Player player1, Player player2) {
+        //initialize the players
         this.player1 = player1;
         this.player2 = player2;
 
+        //Initialize the board and current player ( set current player to player1)
         gameBoard = new Board();
         currentPlayer = player1;
     }
@@ -51,6 +53,7 @@ public class Game {
      */
     public int toInt(char c) {
         char [] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}; // the 8 rows on the board
+        //convert the letters into numerical values to map onto the 2D array
         for (int i = 0; i < chars.length; i++) {
             if (c == chars[i]) {
                 return i;
@@ -65,8 +68,10 @@ public class Game {
      * @return a map with the player move
      */
     public Map<String, Integer> getPlayerMove() {
+        //initialize user move hashMap
         Map<String, Integer> userMove = new HashMap<>();
         Scanner sc = new Scanner(System.in);
+        //initizlize the move notation
         int startRow, startCol, endRow, endCol;
 
         while (true) {
@@ -126,6 +131,7 @@ public class Game {
 
             try {
                 userMove = getPlayerMove();
+                //retrieve userMove
                 gameBoard.play(currentPlayer, userMove.get("startRow"), userMove.get("startCol"), userMove.get("endRow"), userMove.get("endCol"));
 
                 // checks to see if the current player has won

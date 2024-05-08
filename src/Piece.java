@@ -128,10 +128,12 @@ abstract class Piece {
      * @param endCol the ending column
      * @return true if there is a piece in the way, false if there is not
      */
+    // Check if there is any piece in the way diagonally
     public boolean pieceInWayDiagonal(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
         String directionHor;
         String directionVert;
 
+        // Determine horizontal direction
         if (startCol < endCol) {
             directionHor = "right";
         }
@@ -139,6 +141,7 @@ abstract class Piece {
             directionHor = "left";
         }
 
+        // Determine vertical direction
         if (startRow > endRow) {
             directionVert = "up";
         }
@@ -146,56 +149,56 @@ abstract class Piece {
             directionVert = "down";
         }
 
-
-        if (directionHor.equals("right") && (directionVert.equals("up"))) {
+        // Check diagonal movement
+        if (directionHor.equals("right") && directionVert.equals("up")) {
             int j = startCol + 1;
-            for (int i = startRow -1; i > endRow; i--) {
+            for (int i = startRow - 1; i > endRow; i--) {
+                // Check if there is a piece in the way
                 if (board[i][j] != null) {
-                    return true;
+                    return true; // Piece found
                 }
-                j++;
+                j++; // Move to the next column
             }
         }
 
-        // if move is up and left
-        if (directionHor.equals("left") && (directionVert.equals("up"))) {
-            int j = startCol -1;
-            for (int i = startRow -1; i > endRow; i--) {
+        // Check diagonal movement
+        if (directionHor.equals("left") && directionVert.equals("up")) {
+            int j = startCol - 1;
+            for (int i = startRow - 1; i > endRow; i--) {
+                // Check if there is a piece in the way
                 if (board[i][j] != null) {
-                    return true;
+                    return true; // Piece found
                 }
-                j--;
+                j--; // Move to the previous column
             }
         }
 
-        // if move is down and right
-        else if (directionHor.equals("right") && (directionVert.equals("down"))) {
-            System.out.println("down and right");
+        // Check diagonal movement
+        if (directionHor.equals("right") && directionVert.equals("down")) {
             int j = startCol + 1;
-            for (int i = startRow +1; i < endRow; i++) {
+            for (int i = startRow + 1; i < endRow; i++) {
+                // Check if there is a piece in the way
                 if (board[i][j] != null) {
-                    System.out.println("ayo");
-                    System.out.println("i: " + i);
-                    System.out.println("j: " + j);
-                    return true;
+                    return true; // Piece found
                 }
-                j++;
+                j++; // Move to the next column
             }
         }
 
-        // if move is down and left
-        if (directionHor.equals("left") && (directionVert.equals("down"))) {
-            int j = startCol -1;
-            for (int i = startRow +1; i < endRow; i++) {
+        // Check diagonal movement
+        if (directionHor.equals("left") && directionVert.equals("down")) {
+            int j = startCol - 1;
+            for (int i = startRow + 1; i < endRow; i++) {
+                // Check if there is a piece in the way
                 if (board[i][j] != null) {
-                    return true;
+                    return true; // Piece found
                 }
-                j--;
+                j--; // Move to the previous column
             }
         }
 
+        // No piece found in the way
         return false;
-
     }
 
 }
