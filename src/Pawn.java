@@ -1,4 +1,8 @@
 public class Pawn extends Piece {
+    /**
+     * boolean that returns true if the piece has been moved
+     * needed because the pawn can move forward two spaces if it hasn't been moved yet, only one on all other moves
+     */
     private boolean beenMoved = false;
 
     /**
@@ -10,10 +14,10 @@ public class Pawn extends Piece {
     public Pawn(String color, int row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            setChar((char)9823);
+            setChar((char)9823); // ascii character for white pawn
         }
         else {
-            setChar((char)9817);
+            setChar((char)9817); // ascii character for black pawn
         }
     }
 
@@ -43,12 +47,12 @@ public class Pawn extends Piece {
             }
         }
 
-        // if move is attacking
+        // return true if the move is diagonal and attacking an opponent's piece
         if ((Math.abs(endRow - startRow) == 1) && (Math.abs(endCol - startCol) == 1) && (board[endRow][endCol] != null)) {
             return true;
         }
 
-        // else if move is forward one
+        // return true if the move is forward and not attacking
         else if (Math.abs(endRow - startRow) == 1 && endCol == startCol) {
             // if ending spot is empty, you can move there
             if (board[endRow][endCol] == null) {

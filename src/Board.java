@@ -10,18 +10,33 @@ public class Board {
      */
     private ArrayList<Piece> blackDead = new ArrayList<>();
 
+    /**
+     * size of the chess board
+     */
     private static final int SIZE = 8;
 
+    /**
+     * a 2-D array of Pieces that represents the current chess board
+     */
     private static Piece[][] currentBoard = new Piece[SIZE][SIZE];
 
+    /**
+     * the black king piece
+     * declared outside constructor so it is visible in hasWon method
+     */
     private King blackKing;
 
+    /**
+     * the white king piece
+     * declared outside constructor so it is visible in hasWon method
+     */
     private King whiteKing;
 
     /**
-     * Creates the starting Chess Board
+     * Constructor that creates the all the chess pieces and the starting chess board
      */
     public Board() {
+
         // initialize black pieces
         // pawn 1
         Pawn blackPawn1 = new Pawn("black", 'B', 0);
@@ -71,7 +86,6 @@ public class Board {
         // black rook 2
         Rook blackRook2 = new Rook("black", 'A', 7);
         currentBoard[0][7] = blackRook2;
-
 
         // initialize white pieces
         // pawn 1
@@ -126,20 +140,19 @@ public class Board {
 
     /**
      * converts a given int to the corresponding char
-     * @param i an int
-     * @return a char
+     * @param i a given integer
+     * @return the corresponding char
      */
     public char toChar(int i) {
         int asciiValue = 65 + i;
-        return (char) asciiValue;
-    }
+        return (char) asciiValue; }
 
     /**
      * prints the current Board
      */
     public void print() {
         for (int row = 0; row < SIZE; row++) {
-            System.out.println("");
+            System.out.println();
             System.out.println("   -----------------------------------");
             System.out.print(toChar(row) + "  "); // prints the row chars
 
@@ -159,7 +172,7 @@ public class Board {
             }
             System.out.print("|");
         }
-        System.out.println("");
+        System.out.println();
         System.out.println("   -----------------------------------");
         System.out.print("   ");
 
@@ -179,7 +192,7 @@ public class Board {
     public Piece getPiece (int row, int col) {
         // creates a dummy piece to return if the spot given by the row and col is empty
         Piece p = new EmptyPiece("empty", -1, -1);
-        if (!isFull(row, col)) {
+        if (isEmpty(row, col)) {
             return p;
         }
         else {
@@ -188,13 +201,13 @@ public class Board {
     }
 
     /**
-     * checks to see if a given location on the board is full or not
+     * checks to see if a given location on the board is empty
      * @param row the given row
      * @param col the given column
-     * @return true if there is a piece at that location, false if there is not
+     * @return true if there is no piece at the given location, false if there is
      */
-    public boolean isFull(int row, int col) {
-        return currentBoard[row][col] != null;
+    public boolean isEmpty(int row, int col) {
+        return currentBoard[row][col] == null;
     }
 
     /**
@@ -233,7 +246,7 @@ public class Board {
     /**
      * takes input and checks to see if the given move is valid based on the state of the board and the rules of the games
      * if the move is valid, it updates the board
-     * @param currentPlayer the player who's turn it is
+     * @param currentPlayer the player whose turn it is
      * @param startRow the row of the piece the player wants to move
      * @param startCol the column of the piece the player wants to move
      * @param endRow the row where the player wants to move his piece
@@ -247,7 +260,7 @@ public class Board {
         }
 
         // throws exception if the starting spot is empty
-        else if (!isFull(startRow, startCol)) {
+        else if (isEmpty(startRow, startCol)) {
             throw new Exception("CANNOT PLAY THERE. THE STARTING PIECE IS EMPTY");
         }
 
@@ -269,7 +282,7 @@ public class Board {
         // if passes the above tests, it is a valid move
 
         // if the ending spot is empty
-        if (!isFull(endRow, endCol)) {
+        if (isEmpty(endRow, endCol)) {
             movePiece(startRow, startCol, endRow, endCol);
         }
 
@@ -290,5 +303,3 @@ public class Board {
         return currentBoard;
     }
 }
-
-

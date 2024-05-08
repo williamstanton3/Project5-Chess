@@ -1,5 +1,11 @@
 public class Player {
+    /**
+     * name of the player
+     */
     private final String name;
+    /**
+     * color of the player (black or white)
+     */
     private final String color;
 
     /**
@@ -27,6 +33,4 @@ public class Player {
     public String getName() {
         return name;
     }
-
-
 }

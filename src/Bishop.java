@@ -1,5 +1,4 @@
 public class Bishop extends Piece {
-
     /**
      * a constructor that creates a bishop of a given color at a given location
      * @param color the color of the bishop (black or white)
@@ -9,10 +8,10 @@ public class Bishop extends Piece {
     public Bishop(String color, char row, int col) {
         super(color, row, col);
         if (color.equals("white")) {
-            setChar((char)9821);
+            setChar((char)9821); // ascii character for white bishop
         }
         else {
-            setChar((char)9815);
+            setChar((char)9815); // ascii character for black bishop
         }
     }
 
@@ -29,14 +28,17 @@ public class Bishop extends Piece {
     @Override
     public boolean isValidMove(Piece [][] board, int startRow, int startCol, int endRow, int endCol) {
 
+        // if move is not diagonal, return false
         if (Math.abs(startRow - endRow) != Math.abs(startCol - endCol)) {
             return false;
         }
 
+        // if there is a piece in the way, return false
         if (pieceInWayDiagonal(board, startRow, startCol, endRow, endCol)) {
             return false;
         }
 
+        // else, return true
         return true;
     }
 }
