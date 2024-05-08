@@ -71,7 +71,7 @@ public class Game {
         //initialize user move hashMap
         Map<String, Integer> userMove = new HashMap<>();
         Scanner sc = new Scanner(System.in);
-        //initizlize the move notation
+        //initialize the move notation
         int startRow, startCol, endRow, endCol;
 
         while (true) {
